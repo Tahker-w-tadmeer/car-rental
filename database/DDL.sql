@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS `brand` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255),
 
     UNIQUE INDEX `brand_name` (`name`)
 );
 
 CREATE TABLE IF NOT EXISTS `model` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `brand_id` int(11),
     `name` varchar(255),
 
@@ -15,13 +15,15 @@ CREATE TABLE IF NOT EXISTS `model` (
 );
 
 CREATE TABLE IF NOT EXISTS `city` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255),
-    `country_code` varchar(2)
+    `country_code` varchar(2),
+
+    UNIQUE INDEX `city_name_country_code` (`country_code`, `name`)
 );
 
 CREATE TABLE IF NOT EXISTS `office` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `city_id` int(11),
     `address` varchar(255),
     `phone` varchar(20),
@@ -30,12 +32,12 @@ CREATE TABLE IF NOT EXISTS `office` (
 );
 
 CREATE TABLE IF NOT EXISTS `car_type` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `car` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `model_id` int(11),
     `year` int(2),
     `type_id` int(11),
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `car` (
 );
 
 CREATE TABLE IF NOT EXISTS `customer` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `first_name` varchar(255),
     `last_name` varchar(255),
     `phone` varchar(20),
@@ -63,14 +65,14 @@ CREATE TABLE IF NOT EXISTS `customer` (
 );
 
 CREATE TABLE IF NOT EXISTS `admin` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255),
     `email` varchar(255) UNIQUE KEY,
     `password` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `rental` (
-    `id` int(11) PRIMARY KEY,
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `car_id` int(11),
     `customer_id` int(11),
     `reserved_at` timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -81,5 +83,7 @@ CREATE TABLE IF NOT EXISTS `rental` (
     `total_price` decimal(10,2),
 
     FOREIGN KEY (`car_id`) REFERENCES `car` (`id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
+    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+
+    INDEX `car_id_pickup_date` (`car_id`, `pickup_date`)
 );

@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link href="/dist/app.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title><?= $title ?? "" ?></title>
 </head>
 <body style="height:100vh; background-color: rgba(231,231,231,0.97)">
