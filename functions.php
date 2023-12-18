@@ -1,43 +1,17 @@
 <?php
 
-use App\Model;
 use App\Response;
 
-function isLoggedIn() : bool {
-    return isset($_SESSION["id"]);
-}
-
-
-function getUser()
+function env($key, $default=null)
 {
-    if(isset($_SESSION["user"]) && $_SESSION["user"] && $_SESSION["id"] == $_SESSION["user"]["user_id"]) {
-        return $_SESSION["user"];
-    }
+    $env = parse_ini_file(".env");
 
-    $model = new Model();
-
-    return $_SESSION["user"] = $model->execute("Select * from user where user_id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
-}
-
-function getUserById($id) {
-    $model = new Model();
-
-    return $model->execute("Select * from user where user_id=?", [$id])->fetch_array(MYSQLI_ASSOC);
+    return $env[$key] ?? $default;
 }
 
 function response($url, $status=200) : Response
 {
     return Response::make($url, $status);
-}
-
-function logout($url=null) {
-    unset($_SESSION["id"]);
-
-    unset($_SESSION["user"]);
-
-    $url ??= "/login";
-
-    return response($url);
 }
 
 function getResponse()

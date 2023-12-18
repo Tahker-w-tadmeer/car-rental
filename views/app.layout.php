@@ -11,6 +11,7 @@
 
     <link href="/dist/app.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
     <title><?= $title ?? "" ?></title>
 </head>
 <body style="height:100vh; background-color: rgba(231,231,231,0.97)">

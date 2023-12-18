@@ -8,7 +8,13 @@ class Model {
 
     public function __construct()
     {
-        $this->connection = mysqli_connect("127.0.0.1", "root", "", "lab1");
+        $this->connection = mysqli_connect(
+            env("DB_HOST"),
+            env("DB_USERNAME"),
+            env("DB_PASSWORD"),
+            env("DB_DATABASE"),
+            env("DB_PORT"),
+        );
     }
 
     public function execute(string $query, $params=[]): \mysqli_result|bool
