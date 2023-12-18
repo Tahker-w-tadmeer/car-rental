@@ -42,6 +42,7 @@ class View
         foreach ( $this->data as $key => $value) {
             $$key = $value;
         }
+
         ob_start();
         include($this->file);
         $this->html = ob_get_contents();

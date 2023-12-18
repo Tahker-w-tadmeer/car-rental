@@ -16,7 +16,6 @@ session_start();
 $matched = false;
 
 foreach (Route::routes() as $route) {
-    // Fadi Sarwat - 7432
     $args = $route->is($request_uri, $method);
     if ($args !== false) {
 
