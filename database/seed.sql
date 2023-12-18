@@ -36,6 +36,6 @@ values ('Alexandria', 'EG'), ('Cairo', 'EG'), ('Marsa Matrooh', 'EG'), ('Asiut',
        ('Waterloo', 'CA'), ('Guelph', 'CA'), ('Barrie', 'CA'), ('Oshawa', 'CA'), ('Hamilton', 'CA');
 
 
-insert into admin (`name`, `email`, `password`)
-values ('Admin', 'admin@car.test', '$2a$12$upq6InyBsHDUCjjNyPmy7ueSqtPznei.8e2tLqjx13AXSddbIABu2'); # password: 123456
+insert into user (`first_name`, `last_name`, `email`, `phone`, `password`, `type`)
+values ('Admin', '1', 'admin@car.test', '01234567891', '$2a$12$upq6InyBsHDUCjjNyPmy7ueSqtPznei.8e2tLqjx13AXSddbIABu2', 'Customer'); # password: 123456
 

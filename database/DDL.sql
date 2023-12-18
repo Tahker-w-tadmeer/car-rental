@@ -55,26 +55,20 @@ CREATE TABLE IF NOT EXISTS `car` (
     FOREIGN KEY (`type_id`) REFERENCES `car_type` (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `customer` (
+CREATE TABLE IF NOT EXISTS `user` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `first_name` varchar(255),
     `last_name` varchar(255),
     `phone` varchar(20),
     `email` varchar(255) UNIQUE KEY,
-    `password` varchar(255)
-);
-
-CREATE TABLE IF NOT EXISTS `admin` (
-    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-    `name` varchar(255),
-    `email` varchar(255) UNIQUE KEY,
-    `password` varchar(255)
+    `password` varchar(255),
+    `type` enum('Customer', 'Admin') default 'Customer'
 );
 
 CREATE TABLE IF NOT EXISTS `rental` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `car_id` int(11),
-    `customer_id` int(11),
+    `user_id` int(11),
     `reserved_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     `pickup_date` date,
     `picked_up_at` timestamp NULL,
@@ -83,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `rental` (
     `total_price` decimal(10,2),
 
     FOREIGN KEY (`car_id`) REFERENCES `car` (`id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
 
     INDEX `car_id_pickup_date` (`car_id`, `pickup_date`)
 );
