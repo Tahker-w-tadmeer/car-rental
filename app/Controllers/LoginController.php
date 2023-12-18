@@ -19,5 +19,6 @@ class LoginController
 
     public function store()
     {
+
     }
 }
