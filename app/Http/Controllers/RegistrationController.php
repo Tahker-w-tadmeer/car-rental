@@ -2,44 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RegistrationController extends Controller
 {
     public function show()
     {
-        return viewWithLayout("register", "basic", [
+        return view("register", [
             "title" => "Register",
         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         if (! isset($_POST["email"]) || ! isset($_POST["password"])) {
-            return response("/register", 401)->setResponse([
-                "error" => "Email and Password are required",
+            return back()->withErrors([
+                "email" => "Email and Password are required",
             ]);
         }
 
         if ($_POST['password'] !== $_POST['confirm_password']) {
-            return response("/register", 401)->setResponse([
-                "error" => "Password and Password Confirmation must be the same",
+            return back()->withErrors([
+                "password" => "Password and Password Confirmation must be the same",
             ]);
         }
 
-        $first_name = $_POST['fname'];
-        $last_name = $_POST['lname'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $model = new DB();
-        $exists = $model->execute("select id from user where email=? limit 1", [$email])->num_rows;
-        if ($exists > 0) {
-            return response("/register", 401)->setResponse([
-                "error" => "Email already exists",
+        $first_name = $request->get('fname');
+        $last_name = $request->get('lname');
+        $phone = $request->get('phone');
+        $email = $request->get('email');
+        $password = bcrypt($request->get('password'));
+
+        $exists = DB::select("select id from users where email=?", [$email]);
+        if (count($exists) > 0) {
+            return back()->withErrors([
+                "email" => "Email already exists",
             ]);
         }
-        $model->execute("insert into user (first_name, last_name, phone, email, password) values(?, ?, ?, ?, ?)", [
+
+        DB::insert("insert into users (first_name, last_name, phone, email, password) values(?, ?, ?, ?, ?)", [
             $first_name,
             $last_name,
             $phone,
@@ -47,9 +49,10 @@ class RegistrationController extends Controller
             $password,
         ]);
 
-        $_SESSION["id"] = $model->execute("Select id from user where email=?", [$email])->fetch_column();
+        $userId = DB::select("Select id from users where email=? limit 1", [$email])[0]->id;
+        auth()->loginUsingId($userId);
 
-        return response("/dashboard");
+        return redirect("/dashboard");
 
     }
 }

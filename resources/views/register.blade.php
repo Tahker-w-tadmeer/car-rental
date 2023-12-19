@@ -2,11 +2,13 @@
     <div class="flex w-full flex-col justify-center items-center h-screen">
         <div class="bg-gray-200 w-full max-w-xl rounded-md shadow-md">
             <form class="max-w-2xl mx-auto px-4 py-6 space-y-3" action="/register" method="post">
+                @csrf
+
                 <div class="flex items-center w-full space-x-4">
                     <div class="w-full">
                         <label for="fname" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
                         <input type="text" id="fname" name="fname"
-                               value="<?= old('fname') ?>"
+                               value="{{ old('fname') }}"
                                class="bg-gray-50 border border-gray-300 text-gray-900
                    text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
                     p-2.5" required>
@@ -15,7 +17,7 @@
                     <div class="w-full">
                         <label for="lname" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
                         <input type="text" id="lname" name="lname"
-                               value="<?= old('lname') ?>"
+                               value="{{ old('lname') }}"
                                class="bg-gray-50 border border-gray-300 text-gray-900
                    text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
                     p-2.5" required>
@@ -25,7 +27,7 @@
                 <div>
                     <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
                     <input type="text" id="phone" name="phone"
-                           value="<?= old('phone') ?>"
+                           value="{{ old('phone') }}"
                            class="bg-gray-50 border border-gray-300 text-gray-900
                    text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
                     p-2.5" required>
@@ -34,7 +36,7 @@
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                     <input type="email" id="email" name="email"
-                           value="<?= old('email') ?>"
+                           value="{{ old('email') }}"
                            class="bg-gray-50 border border-gray-300 text-gray-900
                    text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
                     p-2.5"
