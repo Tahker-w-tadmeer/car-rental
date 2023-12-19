@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Model {
+class DB {
 
     private \mysqli $connection;
 

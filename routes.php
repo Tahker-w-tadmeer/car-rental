@@ -17,6 +17,6 @@ Route::post("/register", [RegistrationController::class, "store"]);
 
 Route::post("/logout", [LoginController::class, "logout"]);
 
-Route::get("/dashboard", [DashboardController::class, "dashboard"]);
+Route::get("/dashboard", [DashboardController::class, "index"]);
 
 //Route::get("/users/(\\d+)", [HomeController::class, "show"]);

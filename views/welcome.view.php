@@ -12,6 +12,10 @@
             <div class="flex flex-1 justify-end">
                 <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
             </div>
+            <?php else: ?>
+                <div class="flex flex-1 justify-end">
+                    <a href="/dashboard" class="text-sm font-semibold leading-6 text-gray-900">Dashboard <span aria-hidden="true">&rarr;</span></a>
+                </div>
             <?php endif; ?>
         </nav>
     </header>
@@ -27,7 +31,7 @@
                     <h1 class="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Unlock your next adventure!</h1>
                     <p class="mt-6 text-lg leading-8 text-gray-700">From swift reservations to a diverse range of well-maintained vehicles, our platform offers the perfect blend of convenience and choice, ensuring every journey is as enjoyable as the destination itself.</p>
                     <div class="mt-10 flex items-center gap-x-6">
-                        <a href="/login" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                        <a href="/dashboard" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
                             Rent a car
                         </a>
                     </div>

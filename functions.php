@@ -1,6 +1,7 @@
 <?php
 
-use App\Model;
+use App\DB;
+use App\Models\User;
 use App\Response;
 use App\View;
 
@@ -42,15 +43,22 @@ function old($key, $default=null)
 }
 
 
-function getUser()
+function getUser() : ?User
 {
-    $model = new Model();
+    if(!isset($_SESSION["id"])) {
+        return null;
+    }
 
-    return $_SESSION["user"] = $model->execute("Select * from user where id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
+    $model = new DB();
+    $user = $model->execute("Select * from user where id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
+
+    if(! $user) return null;
+
+    return new User($user);
 }
 
 function getUserById($id) {
-    $model = new Model();
+    $model = new DB();
 
     return $model->execute("Select * from user where id=?", [$id])->fetch_array(MYSQLI_ASSOC);
 }

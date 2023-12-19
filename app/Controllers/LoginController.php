@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Model;
+use App\DB;
 use App\View;
 
 class LoginController
@@ -23,8 +23,8 @@ class LoginController
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $model = new Model();
-        $user_from_db = $model->execute("select email, password from user where email=? limit 1", [$email])->fetch_assoc();
+        $model = new DB();
+        $user_from_db = $model->execute("select id, email, password from user where email=? limit 1", [$email])->fetch_assoc();
 
         if (! password_verify($password, $user_from_db['password'])) {
             return response("/login", 401)->setResponse([

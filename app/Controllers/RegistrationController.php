@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Model;
+use App\DB;
 use App\View;
 use App\Response;
 
@@ -34,7 +34,7 @@ class RegistrationController
         $phone = $_POST['phone'];
         $email = $_POST['email'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $model = new Model();
+        $model = new DB();
         $exists = $model->execute("select id from user where email=? limit 1", [$email])->num_rows;
         if ($exists > 0) {
             return response("/register", 401)->setResponse([

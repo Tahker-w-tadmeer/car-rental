@@ -31,6 +31,7 @@ class View
             $layout = View::make($this->layout, [
                 "body" => $this->render(),
                 "title" => $this->data["title"] ?? "",
+                "user" => getUser() ?? null,
             ], true);
         }
 
