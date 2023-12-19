@@ -11,7 +11,7 @@
 
     <link href="/dist/app.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="/dist/alpine.min.js" defer></script>
     <?php if (isset($title)): ?>
     <title><?= $title . " | ". env("APP_NAME") ?></title>
     <?php else: ?>
