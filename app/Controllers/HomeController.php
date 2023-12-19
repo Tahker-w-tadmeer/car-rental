@@ -7,7 +7,7 @@ use App\View;
 class HomeController
 {
     public function index() {
-        return View::make("welcome", [
+        return viewWithLayout("welcome", "basic", [
             "title" => "Home",
         ]);
     }

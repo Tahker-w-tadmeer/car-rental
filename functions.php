@@ -2,12 +2,23 @@
 
 use App\Model;
 use App\Response;
+use App\View;
 
 function env($key, $default=null)
 {
     $env = parse_ini_file(".env");
 
     return $env[$key] ?? $default;
+}
+
+function view($view, $data=[]): View
+{
+    return View::make($view, $data);
+}
+
+function viewWithLayout($view, $layout, $data=[]): View
+{
+    return View::makeWithLayout($view, $layout, $data);
 }
 
 function isLoggedIn() : bool {

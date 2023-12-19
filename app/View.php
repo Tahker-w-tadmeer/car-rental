@@ -7,7 +7,7 @@ class View
     protected string $file;
     protected ?string $html = null;
 
-    private function __construct(protected string $view, protected array $data, protected $isLayout=false)
+    private function __construct(protected string $view, protected array $data, protected $isLayout=false, protected string $layout="app")
     {
         $this->file = __DIR__ . "/../views/" . $this->view . ".view.php";
 
@@ -20,11 +20,15 @@ class View
         return new View($view, $data, $isLayout);
     }
 
+    public static function makeWithLayout(string $view, $layout, array $data=[]): self {
+        return new View($view, $data, false, $layout);
+    }
+
     public function html() : string
     {
         $layout = $this;
         if(! $this->isLayout) {
-            $layout = View::make("app", [
+            $layout = View::make($this->layout, [
                 "body" => $this->render(),
                 "title" => $this->data["title"] ?? "",
             ], true);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\DashboardController;
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;
 use App\Controllers\RegistrationController;
@@ -15,5 +16,7 @@ Route::get("/register", [RegistrationController::class, "show"]);
 Route::post("/register", [RegistrationController::class, "store"]);
 
 Route::post("/logout", [LoginController::class, "logout"]);
+
+Route::get("/dashboard", [DashboardController::class, "dashboard"]);
 
 //Route::get("/users/(\\d+)", [HomeController::class, "show"]);

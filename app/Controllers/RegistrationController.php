@@ -10,7 +10,7 @@ class RegistrationController
 {
     public function show()
     {
-        return View::make("register", [
+        return viewWithLayout("register", "basic", [
             "title" => "Register",
         ]);
     }
@@ -48,7 +48,10 @@ class RegistrationController
             $email,
             $password,
         ]);
-        return View::make("welcome");
+
+        $_SESSION["id"] = $model->execute("Select id from user where email=?", [$email])->fetch_column();
+
+        return response("/dashboard");
 
     }
 }

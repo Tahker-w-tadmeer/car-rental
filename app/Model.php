@@ -13,7 +13,7 @@ class Model {
             env("DB_USERNAME"),
             env("DB_PASSWORD"),
             env("DB_DATABASE"),
-            //env("DB_PORT")
+            env("DB_PORT")
         );
     }
 

@@ -9,7 +9,7 @@ class LoginController
 {
     public function show()
     {
-        return View::make("login", [
+        return viewWithLayout("login", "basic", [
             "title" => "Login",
         ]);
     }
@@ -33,6 +33,6 @@ class LoginController
         }
 
         $_SESSION["id"] = $user_from_db["id"];
-        return response("/");
+        return response("/dashboard");
     }
 }
