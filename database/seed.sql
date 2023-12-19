@@ -1,12 +1,3 @@
-insert into car_type (`name`)
-values ('Sedan'), ('SUV'), ('Hatchback'), ('Convertible'), ('Van'), ('Truck'), ('Other');
-
-insert into brand (`name`)
-values ('Honda'), ('Toyota'), ('Ford'), ('Nissan'), ('BMW'),
-       ('Mercedes'), ('Audi'), ('Tesla'), ('Chevrolet'),
-       ('Volkswagen'), ('Kia'), ('Renault'), ('Jeep'), ('Geely'),
-       ('Fiat'), ('Hyundai'), ('GM'), ('Peugeot'), ('Other');
-
 insert into city (`name`, `country_code`)
 values ('Alexandria', 'EG'), ('Cairo', 'EG'), ('Marsa Matrooh', 'EG'), ('Asiut', 'EG'), ('Aswan', 'EG'),
        ('Luxor', 'EG'), ('Suez', 'EG'), ('Ismailia', 'EG'), ('Tanta', 'EG'),

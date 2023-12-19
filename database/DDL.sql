@@ -1,18 +1,14 @@
-CREATE TABLE IF NOT EXISTS `brand` (
-    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-    `name` varchar(255),
+SET FOREIGN_KEY_CHECKS = 0;
+drop table if exists city;
+drop table if exists office;
+drop table if exists car_type;
+drop table if exists brand;
+drop table if exists car;
+drop table if exists model;
+drop table if exists rental;
+drop table if exists user;
+SET FOREIGN_KEY_CHECKS = 1;
 
-    UNIQUE INDEX `brand_name` (`name`)
-);
-
-CREATE TABLE IF NOT EXISTS `model` (
-    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-    `brand_id` int(11),
-    `name` varchar(255),
-
-    UNIQUE INDEX `model_name_year` (`name`),
-    FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`)
-);
 
 CREATE TABLE IF NOT EXISTS `city` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -36,18 +32,34 @@ CREATE TABLE IF NOT EXISTS `car_type` (
     `name` varchar(255)
 );
 
+CREATE TABLE IF NOT EXISTS `brand` (
+   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+   `name` varchar(255),
+
+   UNIQUE INDEX `brand_name` (`name`)
+);
+
+CREATE TABLE IF NOT EXISTS `model` (
+   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+   `brand_id` int(11),
+   `name` varchar(255),
+
+   UNIQUE INDEX `model_brand_id_name` (`brand_id` ,`name`),
+   FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `car` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
     `model_id` int(11),
     `year` int(2),
-    `type_id` int(11),
     `plate_id` varchar(20),
     `color` varchar(50),
     `office_id` int(11),
-    `image` varchar(255),
+    `image` varchar(255) NULL,
     `mileage` int(11),
-    `status` enum('Active', 'Out of Service', 'Rented'),
+    `type_id` int(11),
     `category` enum('Gas', 'Electric', 'Hybrid'),
+    `status` enum('Active', 'Out of Service', 'Rented'),
     `price_per_day` decimal(10, 2),
 
     FOREIGN KEY (`model_id`) REFERENCES `model` (`id`),

@@ -52,7 +52,10 @@ function getUser() : ?User
     $model = new DB();
     $user = $model->execute("Select * from user where id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
 
-    if(! $user) return null;
+    if(! $user) {
+        $_SESSION["id"] = null;
+        return null;
+    }
 
     return new User($user);
 }
