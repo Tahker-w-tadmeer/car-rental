@@ -33,10 +33,6 @@ function old($key, $default=null)
 
 function getUser()
 {
-    if(isset($_SESSION["user"]) && $_SESSION["user"] && $_SESSION["id"] == $_SESSION["user"]["user_id"]) {
-        return $_SESSION["user"];
-    }
-
     $model = new Model();
 
     return $_SESSION["user"] = $model->execute("Select * from user where id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
@@ -45,7 +41,7 @@ function getUser()
 function getUserById($id) {
     $model = new Model();
 
-    return $model->execute("Select * from user where user_id=?", [$id])->fetch_array(MYSQLI_ASSOC);
+    return $model->execute("Select * from user where id=?", [$id])->fetch_array(MYSQLI_ASSOC);
 }
 
 function response($url, $status=200) : Response
