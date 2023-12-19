@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\CarType;
+use App\Models\Model;
+use App\Models\Office;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +19,9 @@ class CarFactory extends Factory
      */
     public function definition(): array
     {
-        $modelId = '';
-        $officeId = '';
-        $typeId = '';
+        $modelId = Model::query()->inRandomOrder()->first()->id;
+        $officeId = Office::query()->inRandomOrder()->first()->id;
+        $typeId = CarType::query()->inRandomOrder()->first()->id;
 
         return [
             "model_id" => $modelId,

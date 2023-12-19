@@ -1,4 +1,4 @@
-insert into city (`name`, `country_code`)
+insert into cities (`name`, `country_code`)
 values ('Alexandria', 'EG'), ('Cairo', 'EG'), ('Marsa Matrooh', 'EG'), ('Asiut', 'EG'), ('Aswan', 'EG'),
        ('Luxor', 'EG'), ('Suez', 'EG'), ('Ismailia', 'EG'), ('Tanta', 'EG'),
        ('Damietta', 'EG'), ('Qena', 'EG'), ('Sohag', 'EG'), ('Hurghada', 'EG'), ('Minya', 'EG'),
@@ -27,6 +27,6 @@ values ('Alexandria', 'EG'), ('Cairo', 'EG'), ('Marsa Matrooh', 'EG'), ('Asiut',
        ('Waterloo', 'CA'), ('Guelph', 'CA'), ('Barrie', 'CA'), ('Oshawa', 'CA'), ('Hamilton', 'CA');
 
 
-insert into user (`first_name`, `last_name`, `email`, `phone`, `password`, `type`)
+insert into users (`first_name`, `last_name`, `email`, `phone`, `password`, `type`)
 values ('Admin', '1', 'admin@car.test', '01234567891', '$2a$12$upq6InyBsHDUCjjNyPmy7ueSqtPznei.8e2tLqjx13AXSddbIABu2', 'Admin'); # password: 123456
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class OfficeFactory extends Factory
      */
     public function definition(): array
     {
+        // Select id from city order by RAND() limit 1
+
         return [
-            "city_id" => "Select id from city order by RAND() limit 1",
+            "city_id" => City::query()->inRandomOrder()->first()->id,
             "address" => $this->faker->address(),
             "phone" => $this->faker->phoneNumber(),
         ];

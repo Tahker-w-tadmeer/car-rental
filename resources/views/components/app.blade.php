@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-full bg-white">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <link href="/dist/app.min.css" rel="stylesheet" />
-    <script src="/dist/app.js" defer></script>
-    <script src="/dist/alpine.min.js" defer></script>
-    <?php if (isset($title) && $title): ?>
-        <title><?= $title . " | ". env("APP_NAME") ?></title>
-    <?php else: ?>
-        <title><?= env("APP_NAME") ?></title>
-    <?php endif; ?>
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+
+    @if(isset($title) && $title)
+        <title>{{ $title . " | ". config("app.name") }}</title>
+    @else
+        <title>{{ config("app.name") }}</title>
+    @endif
 </head>
 <body class="h-full bg-gray-50">
 <div x-data="{ menu: false, profileDropdown: false }">
@@ -60,14 +60,14 @@
                 </div>
 
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
-                <?php include('navbar.php') ?>
+                <x-navbar />
             </div>
         </div>
     </div>
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <?php include('navbar.php') ?>
+        <x-navbar />
     </div>
 
     <div class="lg:pl-72">
@@ -91,7 +91,7 @@
                     <div class="relative">
                         <button @click="profileDropdown=true" type="button" class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                             <span class="sr-only">Open user menu</span>
-                            <img class="h-8 w-8 rounded-full bg-gray-50" src="/dist/images/defaultPicture.png" alt="">
+                            <img class="h-8 w-8 rounded-full bg-gray-50" src="{{ asset('images/defaultPicture.png') }}" alt="">
                             <span class="hidden lg:flex lg:items-center">
                                 <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true"><?= $user->first_name ?> <?= $user->last_name ?></span>
                                 <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -124,7 +124,7 @@
 
         <main class="py-10">
             <div class="px-4 sm:px-6 lg:px-8">
-                <?= $body ?? "" ?>
+                {{ $slot }}
             </div>
         </main>
     </div>
