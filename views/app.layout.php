@@ -18,7 +18,7 @@
     <title><?= env("APP_NAME") ?></title>
     <?php endif; ?>
 </head>
-<body style="height:100vh; background-color: rgba(231,231,231,0.97)">
+<body style="height:100vh; background-color: rgba(253,253,253,0.97)">
 
 <?= $body ?? "" ?>
 
