@@ -1,5 +1,6 @@
 <?php
 
+use App\Model;
 use App\Response;
 
 function env($key, $default=null)
@@ -13,6 +14,22 @@ function isLoggedIn() : bool {
     return isset($_SESSION["id"]);
 }
 
+function logout($url=null) {
+    unset($_SESSION["id"]);
+
+    $url ??= "/login";
+
+    return response($url);
+}
+
+function old($key, $default=null)
+{
+    $old = getResponse()["old"] ?? null;
+    if(! $old) return $default;
+
+    return $old[$key] ?? $default;
+}
+
 
 function getUser()
 {
@@ -22,7 +39,7 @@ function getUser()
 
     $model = new Model();
 
-    return $_SESSION["user"] = $model->execute("Select * from user where user_id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
+    return $_SESSION["user"] = $model->execute("Select * from user where id=?", [$_SESSION["id"]])->fetch_array(MYSQLI_ASSOC);
 }
 
 function getUserById($id) {

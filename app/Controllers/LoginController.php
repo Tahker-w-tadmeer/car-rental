@@ -16,17 +16,13 @@ class LoginController
 
     public function logout()
     {
-        session_destroy();
-        setcookie('email', '', time() - 3600);
-        setcookie('password', '', time() - 3600);
-        header('Location: /login');
+        return logout();
     }
 
     public function check()
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $remember = isset($_POST['remember']);
         $model = new Model();
         $user_from_db = $model->execute("select email, password from user where email=? limit 1", [$email])->fetch_assoc();
 

@@ -44,6 +44,10 @@ class Response
     {
         $this->response = $response;
 
+        if(is_array($this->response)) {
+            $this->response["old"] = array_merge($_POST, $_GET);
+        }
+
         return $this;
     }
 }
