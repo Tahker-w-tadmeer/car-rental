@@ -16,17 +16,13 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
-        if (! isset($_POST["email"]) || ! isset($_POST["password"])) {
-            return back()->withErrors([
-                "email" => "Email and Password are required",
-            ]);
-        }
-
-        if ($_POST['password'] !== $_POST['confirm_password']) {
-            return back()->withErrors([
-                "password" => "Password and Password Confirmation must be the same",
-            ]);
-        }
+        $request->validate([
+            "fname" => "required",
+            "lname" => "required",
+            "phone" => "required",
+            "email" => "required|email",
+            "password" => "required|confirmed",
+        ]);
 
         $first_name = $request->get('fname');
         $last_name = $request->get('lname');
@@ -36,7 +32,9 @@ class RegistrationController extends Controller
 
         $exists = DB::select("select id from users where email=?", [$email]);
         if (count($exists) > 0) {
-            return back()->withErrors([
+            return back()
+                ->withInput($request->all())
+                ->withErrors([
                 "email" => "Email already exists",
             ]);
         }

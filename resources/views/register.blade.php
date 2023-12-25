@@ -52,21 +52,28 @@
                 </div>
 
                 <div>
-                    <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password"
+                    <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900">Confirm
+                        Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation"
                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
                     block w-full p-2.5"
                            required>
                 </div>
 
-                {{--            <div>--}}
-                {{--                <?php if(hasError()): ?>--}}
-                {{--                    <div class="my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">--}}
-                {{--                        <strong class="font-bold">Error!</strong>--}}
-                {{--                        <span class="block sm:inline"><?= getErrors() ?></span>--}}
-                {{--                    </div>--}}
-                {{--                <?php endif; ?>--}}
-                {{--            </div>--}}
+                <div>
+                    @if($errors->count())
+                        <div class="my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                             role="alert">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>
+                                    <span class="block sm:inline">{{ $error }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
 
                 <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
