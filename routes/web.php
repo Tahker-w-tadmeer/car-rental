@@ -25,3 +25,4 @@ Route::middleware(["auth"])->group(function () {
     Route::post("/cars", [CarController::class, "store"])->name("cars.store");
     Route::get("/cars", [CarController::class, "index"])->name("cars");
 });
+

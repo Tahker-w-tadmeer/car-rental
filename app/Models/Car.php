@@ -26,4 +26,11 @@ class Car extends Model
             },
         );
     }
+    public function paginate($perPage = 10, $columns = ['*'], $pageName = 'page', $page = null)
+    {
+
+        
+        return parent::paginate($perPage, $columns, $pageName, $page);
+
+    }
 }

@@ -4,7 +4,7 @@ values ('Honda'), ('Toyota'), ('Ford'), ('Nissan'), ('BMW'),
        ('Volkswagen'), ('Kia'), ('Renault'), ('Jeep'), ('Geely'),
        ('Fiat'), ('Hyundai'), ('GM'), ('Peugeot');
 
-insert into car_types (`id`, `name`)
+insert into car_types (`id`, `type_name`)
 values (1, 'Sedan'), (2, 'SUV'), (3, 'Hatchback'), (4, 'Convertible'), (5, 'Van'), (6, 'Truck'), (7, 'Other');
 
 insert into models (brand_id, name) values
