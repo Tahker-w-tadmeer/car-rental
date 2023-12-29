@@ -26,6 +26,7 @@ class CarController extends Controller
 
         return view("cars.show", [
             "title" => "Show a car",
+            "car" => $car,
         ]);
     }
 }
