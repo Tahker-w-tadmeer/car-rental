@@ -39,23 +39,13 @@
                         <div class="col-span-3">
                             <label for="brand name" class="block text-sm font-medium leading-6 text-gray-900">Brand name</label>
                             <div class="mt-2">
-                                <select name="cars" id="cars">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
+                                <input type="text">
                             </div>
                         </div>
                         <div class="col-span-3">
                             <label for="model name" class="block text-sm font-medium leading-6 text-gray-900">Model name</label>
                             <div class="mt-2">
-                                <select name="model" id="model">
-                                    <option value="Accord">Accord</option>
-                                    <option value="RAV4">RAV4</option>
-                                    <option value="X3">X3</option>
-                                    <option value="audi">Audi</option>
-                                </select>
+                                <input type="text">
                             </div>
                         </div>
                         <div class="col-span-3">
@@ -128,6 +118,10 @@
 
                     </div>
                 </div>
+                <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                </div>
             </form>
         </div>
 
@@ -143,35 +137,35 @@
                         <div class="col-span-3">
                             <label for="Country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
                             <div class="mt-2">
-                                <select name="country" id="country">
-                                    <option value="Egypt ">Egypt </option>
-                                    <option value="USA">SA</option>
-                                </select>
+                                <input type="text" name="Country" id="Country" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
                         <div class="col-span-3">
                             <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
                             <div class="mt-2">
-                                <select name="city" id="city">
-                                    <option value="Alexandria ">Alexandria </option>
-                                    <option value="Cairo">Cairo</option>
-                                    <option value="LA">LA</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="Address" class="block text-sm font-medium leading-6 text-gray-900">Address</label>
-                            <div class="mt-2">
-                                <input type="text">
+                                <input type="text" name="City" id="City" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
-                    </div>
-                    <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-                        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                        <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-                    </div>
+                        <div class="col-span-full">
+                            <label for="Address" class="block text-sm font-medium leading-6 text-gray-900">Address</label>
+                            <div class="mt-2">
+                                <input type="text" name="Address" id="Address" autocomplete="Address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-4">
+                            <label for="phone_number" class="block text-sm font-medium leading-6 text-gray-900">phone_number</label>
+                            <div class="mt-2">
+                                <input id="phone_number" name="phone_number" type="number"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                        </div>
+                </div>
+                <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                </div>
                 </div>
             </form>
         </div>
