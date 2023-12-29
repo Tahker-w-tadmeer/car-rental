@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index() {
-        return view("dashboard");
+        $cars=DB::table('cars')->get();
+        return view("dashboard",compact('cars'));
     }
 }
