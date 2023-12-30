@@ -1,6 +1,6 @@
 @props(['cars'])
-        <div class="lg:grid lg:grid-cols-3">
-            @foreach($cars as $car)
-                <x-car-card :car="$car" class="{{$loop->iteration>3?'col-span-3':'col-span-2'}}"></x-car-card>
-            @endforeach
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-4">
+    @foreach($cars as $car)
+        <x-car-card :car="$car"></x-car-card>
+    @endforeach
+</div>

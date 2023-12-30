@@ -1,58 +1,52 @@
 @props(['car'])
 <article
-    class="transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl">
-    <div class="py-8 px-30 lg:flex">
-        <div class="flex-1 lg:mr-1 ">
+    class="border border-black border-opacity-0 rounded-xl bg-white shadow">
+    <div class="flex flex-col">
+        <div class="">
             <img src="{{ asset($car->image) }}"
-                 alt="Blog Post illustration"
-                 class="rounded-xl w-200 h-200"
+                 alt="Car {{ $car->name  }}"
+                 class="w-full h-auto object-cover"
             >
         </div>
-        <div class="flex-1 flex flex-col justify-between">
-            <header class="mt-8 lg:mt-0">
-                <div class="space-x-2">
-                    <a href="/model/{{ $car->type_name }}"
-                       class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                       style="font-size: 10px">{{ $car->type_name }}</a>
-                </div>
-
-                <div class="flex-1 flex flex-col justify-between ">
-                    <header class="mt-8 lg:mt-0">
-                        <div class="space-x-2">
-                            <a href="#"
-                               class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                               style="font-size: 10px">{{ $car->category }}</a>
-                        </div>
-               
+        <div class="flex flex-col justify-between mt-3 pt-4 pb-3 px-3">
+            <header class="text-xl text-gray-900 font-semibold">
+                {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
             </header>
 
-            <div class="px-20">
-            @if ($car->status=='Active')
-                <div class="rounded-full w-6 h-6 bg-green-600">
-                    &nbsp;
+            <div class="flex-1 flex flex-col justify-between ">
+                <div class="mt-2">
+                    <div class="space-x-2">
+                        <span
+                           class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
+                           style="font-size: 10px">{{ $car->category }}</span>
+                        <span
+                            class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
+                            style="font-size: 10px">{{ $car->type }}</span>
+                    </div>
                 </div>
-            
-            @else
-            <div class="rounded-full w-6 h-6 bg-red-600">
-                &nbsp;
-            </div>
-            @endif
-            </div>
-            <div>
-               
-               
-                <p class="text-bold dark:text-black-400 px-10">
-                    {{ $car->price_per_day }}/Day
-                </p>
+                <div class="mt-3">
+                    <p class="text-bold dark:text-black-400">
+                        <span class="text-gray-900 text-xl font-semibold">${{ $car->price_per_day }}</span><span
+                            class="text-gray-700 text-sm">/day</span>
+                    </p>
 
-            </div>
-            <footer class="flex justify-between items-center mt-8">
-                <div class="hidden lg:block">
-                    <a href="/rent/{{$car->id}}"
-                       class="mt-20 transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8"
-                    >Rent</a>
                 </div>
-            </footer>
+                <footer class="flex justify-end mt-8">
+                    <div>
+                        @if($car->status == 'Active')
+                            <a href="/rent/{{$car->id}}"
+                               class="transition-colors duration-300 text-xs font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-4">
+                                Rent
+                            </a>
+                            @else
+                            <span
+                               class="text-xs font-semibold bg-red-100 text-red-600 rounded-lg py-1 px-2">
+                                Not Available
+                            </span>
+                        @endif
+                    </div>
+                </footer>
+            </div>
         </div>
     </div>
 </article>
