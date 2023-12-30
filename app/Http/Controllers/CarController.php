@@ -12,7 +12,10 @@ class CarController extends Controller
     public function create()
     {
         $models = collect(DB::select(
-            "SELECT models.id, brands.name as brand_name, models.`name` from models left join brands on brands.id = models.brand_id"
+            "SELECT models.id,
+       brands.name as brand_name,
+       models.`name`
+from models left join brands on brands.id = models.brand_id"
         ))
             ->mapWithKeys(fn($model) => [
                 $model->id => "$model->brand_name $model->name"
@@ -48,7 +51,7 @@ class CarController extends Controller
             // TODO: upload image
         }
 
-        DB::insert('INSERT INTO cars (model_id, category, color, mileage, type_id, plate_id, price_per_day, office_id, year, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::insert('INSERT INTO cars (model_id, category, color, mileage, type_id, plate_id, price_per_day, office_id, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->model_id,
             $request->category,
             $request->color,
@@ -58,7 +61,6 @@ class CarController extends Controller
             $request->price_per_day,
             $request->office_id,
             $request->year,
-            "Active"
         ]);
 
         session()->flash('success', 'Car added successfully!');

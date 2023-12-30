@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Car;
+use App\Models\Rental;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -39,9 +41,28 @@ class DashboardController extends Controller
 
         return view("dashboard", compact('cars'));
     }
-    public function rent($id) {
-        $selectedCar= new Car;
-        $selectedCar = $selectedCar->find($id);
-        return view("rent.viewcar", compact('selectedCar'));
+
+    public function rent($id)
+    {
+        $selectedCar = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
+              join models m on m.id = cars.model_id
+              join car_types ct on cars.type_id = ct.id
+              join offices o on cars.office_id = o.id
+              join cities c on c.id = o.city_id
+              where cars.id = ?', [$id]))
+            ->map(fn($selectedCar) => (array)$selectedCar)
+            ->mapInto(Car::class);
+
+
+        $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
+            ->map(fn($rent) => (array)$rent)
+            ->mapInto(Rental::class);
+
+
+        return view("rent.car_details", [
+            'selectedCar' => $selectedCar,
+            'rent' => $rent
+
+        ]);
     }
 }
