@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `offices` (
 
 CREATE TABLE IF NOT EXISTS `car_types` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-    `name` varchar(255)
+    `type_name` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `brands` (
