@@ -9,7 +9,7 @@
         <input @keydown.enter.prevent="selected=Object.entries(options).filter(([key, value]) => value.toLowerCase().includes(search.toLowerCase()))[0][0] ?? null; open=false" @focus="open=true"
                id="{{ $id }}"
                type="text"
-               :value="options[selected]"
+               value="options[selected]"
                x-model="search"
                @class([
                   'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
