@@ -48,7 +48,7 @@
             </div>
             <footer class="flex justify-between items-center mt-8">
                 <div class="hidden lg:block">
-                    <a href="/rent/{{ $car->id }}"
+                    <a href="/rent/{{$car->id}}"
                        class="mt-20 transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8"
                     >Rent</a>
                 </div>
