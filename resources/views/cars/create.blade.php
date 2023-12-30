@@ -6,18 +6,13 @@
                 <p class="mt-1 text-sm leading-6 text-gray-600">You can add new car/model to the system from this Form .</p>
             </div>
 
-            <form class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+            <form action="{{ route("cars.store") }}"
+                  method="post"
+                  class="bg-white shadow-sm ring-1 ring-gray-900/5
+                  sm:rounded-xl md:col-span-2">
+                @csrf
                 <div class="px-4 py-6 sm:p-8">
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="col-span-full">
-                            <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Photo</label>
-                            <div class="mt-2 flex items-center gap-x-3">
-                                <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                                </svg>
-                                <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
-                            </div>
-                        </div>
                         <div class="col-span-full">
                             <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Car photo</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -36,147 +31,94 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-span-3">
-                            <label for="brand name" class="block text-sm font-medium leading-6 text-gray-900">Brand name</label>
-                            <div class="mt-2">
-                                <select name="cars" id="cars">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="model name" class="block text-sm font-medium leading-6 text-gray-900">Model name</label>
-                            <div class="mt-2">
-                                <select name="model" id="model">
-                                    <option value="Accord">Accord</option>
-                                    <option value="RAV4">RAV4</option>
-                                    <option value="X3">X3</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="Type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
-                            <div class="mt-2">
-                                <select name="Category" id="Category">
-                                    <option value="Manual">Manual</option>
-                                    <option value="AUtomatic">Automatic</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="Category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
-                            <div class="mt-2">
-                                <select name="Category" id="Category">
-                                    <option value="Gas">Gas</option>
-                                    <option value="Electric">Electric</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="year" class="block text-sm font-medium leading-6 text-gray-900">Year</label>
-                            <div class="mt-2">
-                                <input type="date" >
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="color" class="block text-sm font-medium leading-6 text-gray-900">Car Color</label>
-                            <div class="mt-2">
-                                <input id="color" type="color">
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="plate_id" class="block text-sm font-medium leading-6 text-gray-900">Plate numbers</label>
-                            <div class="mt-2">
-                                <input type="text" placeholder="example : zxl 002">
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="mileage" class="block text-sm font-medium leading-6 text-gray-900">Mileage</label>
-                            <div class="mt-2">
-                                <input type="number" placeholder="0-500000 km">
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="Status" class="block text-sm font-medium leading-6 text-gray-900">Status</label>
-                            <div class="mt-2">
-                                <select name="Status" id="Status">
-                                    <option value="Active ">Active</option>
-                                    <option value="Out of Service">Out of Service</option>
-                                    <option value="Rented">Rented</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="price_for_rent" class="block text-sm font-medium leading-6 text-gray-900">Price for rent</label>
-                            <div class="mt-2">
-                                <input type="number" placeholder="10-200 LE">
-                            </div>
-                        </div>
-                        <div class="col-span-full">
-                            <label for="website" class="block text-sm font-medium leading-6 text-gray-900">Website</label>
-                            <div class="mt-2">
-                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                    <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">http://</span>
-                                    <input type="text" name="website" id="website" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="www.example.com">
-                                </div>
-                            </div>
-                        </div>
 
+                        <x-forms.select
+                            :options="$models"
+                            class="col-span-3"
+                            name="model_id"
+                            label="Model"
+                            id="model_id"
+                        />
+
+                        <x-forms.select
+                            :options="$categories"
+                            class="col-span-3"
+                            name="category"
+                            label="Category"
+                            id="category"
+                        />
+
+                        <x-forms.select
+                            :options="$types"
+                            class="col-span-3"
+                            name="type_id"
+                            label="Type"
+                            id="type_id"
+                        />
+
+                        <x-forms.select
+                            :options="$offices"
+                            class="col-span-3"
+                            name="office_id"
+                            label="Office"
+                            id="office_id"
+                        />
+
+                        <x-forms.input
+                            type="text"
+                            name="year"
+                            id="year"
+                            label="Year"
+                            placeholder="2020, 2021, ..."
+                            class="col-span-3"
+                        />
+
+                        <x-forms.input
+                            type="text"
+                            name="color"
+                            id="color"
+                            label="Color"
+                            placeholder="red, black, ..."
+                            class="col-span-3"
+                        />
+                        <x-forms.input
+                            type="text"
+                            name="plate_id"
+                            id="plate_id"
+                            label="License Plate"
+                            placeholder="zxl 002"
+                            class="col-span-3"
+                            required
+                        />
+                        <x-forms.input
+                            type="number"
+                            name="mileage"
+                            id="mileage"
+                            label="Mileage in Km"
+                            placeholder="0-500000 Km"
+                            class="col-span-3"
+                        />
+                        <x-forms.input
+                            type="number"
+                            name="price_per_day"
+                            id="price_per_day"
+                            label="Price per day"
+                            placeholder="$10-200"
+                            class="col-span-3"
+                            required
+                        />
                     </div>
                 </div>
-            </form>
-        </div>
 
-        <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
-            <div class="px-4 sm:px-0">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Office Information</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">Write all information about this office.</p>
-            </div>
-
-            <form class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
-                <div class="px-4 py-6 sm:p-8">
-                    <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="col-span-3">
-                            <label for="Country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
-                            <div class="mt-2">
-                                <select name="country" id="country">
-                                    <option value="Egypt ">Egypt </option>
-                                    <option value="USA">SA</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-span-3">
-                            <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-                            <div class="mt-2">
-                                <select name="city" id="city">
-                                    <option value="Alexandria ">Alexandria </option>
-                                    <option value="Cairo">Cairo</option>
-                                    <option value="LA">LA</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-3">
-                            <label for="Address" class="block text-sm font-medium leading-6 text-gray-900">Address</label>
-                            <div class="mt-2">
-                                <input type="text">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-                        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                        <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-                    </div>
+                <div class="w-full flex items-center justify-end pr-8 mb-6">
+                    <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                        Submit
+                    </button>
                 </div>
+
             </form>
         </div>
 
 
-    </div>
     </div>
 </x-app>

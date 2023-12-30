@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `cities` (
 
 CREATE TABLE IF NOT EXISTS `offices` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(255),
     `city_id` int(11),
     `address` varchar(255),
     `phone` varchar(20),
@@ -59,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `cars` (
     `mileage` int(11),
     `type_id` int(11),
     `category` enum('Gas', 'Electric', 'Hybrid'),
-    `status` enum('Active', 'Out of Service', 'Rented'),
     `price_per_day` decimal(10, 2),
 
     FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),

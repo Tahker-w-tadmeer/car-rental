@@ -9,4 +9,6 @@ class Model extends ElModel
 {
     use HasFactory;
     public $timestamps = false;
+
+    protected $guarded = [];
 }
