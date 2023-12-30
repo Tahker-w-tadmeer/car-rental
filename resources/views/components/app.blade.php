@@ -102,6 +102,7 @@
 
                         <div
                                 x-show="profileDropdown"
+                                style="display: none;"
                                 x-transition:enter="transition ease-out duration-100"
                                 x-transition:enter-start="transform opacity-0 scale-95"
                                 x-transition:enter-end="transform opacity-100 scale-100"
@@ -126,6 +127,8 @@
         <main class="py-10">
             <div class="px-4 sm:px-6 lg:px-8">
                 {{ $slot }}
+
+                <x-flash-notifications :message="session()->get('success')" />
             </div>
         </main>
     </div>

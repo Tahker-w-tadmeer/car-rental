@@ -61,7 +61,7 @@ class CarController extends Controller
             "Active"
         ]);
 
-        session()->flash('success', 'Car created successfully!');
+        session()->flash('success', 'Car added successfully!');
 
         return redirect()->route('dashboard');
     }

@@ -1,6 +1,6 @@
 <x-app>
     <div class="space-y-10 divide-y divide-gray-900/10">
-        <div class="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-5">
             <div class="px-4 sm:px-0">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Car Data</h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">You can add new car/model to the system from this Form .</p>
@@ -9,10 +9,10 @@
             <form action="{{ route("cars.store") }}"
                   method="post"
                   class="bg-white shadow-sm ring-1 ring-gray-900/5
-                  sm:rounded-xl md:col-span-2">
+                  sm:rounded-xl md:col-span-4">
                 @csrf
                 <div class="px-4 py-6 sm:p-8">
-                    <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="grid max-w-4xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="col-span-full">
                             <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Car photo</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
