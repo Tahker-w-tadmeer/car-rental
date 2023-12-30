@@ -20,8 +20,8 @@ Route::post("/logout", [LoginController::class, "logout"]);
 
 Route::middleware(["auth"])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
+    Route::get("/rent/{id}",[DashboardController::class,"rent"])->name("rent");
 
-    Route::get("/cars/create", [CarController::class, "create"])->name("cars.create");
-    Route::post("/cars", [CarController::class, "store"])->name("cars.store");
-    Route::get("/cars", [CarController::class, "index"])->name("cars");
+    Route::resource("cars", CarController::class);
 });
+
