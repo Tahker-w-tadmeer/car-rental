@@ -12,12 +12,14 @@ class DashboardController extends Controller
         join offices on cars.office_id = offices.id
         join car_types on cars.type_id = car_types.id
         '))
-            
             ->map(fn($car) => (array) $car)
             ->mapInto(Car::class)
             ;
-            $cars = new Car();
-            $cars = $cars->paginate(20);
         return view("dashboard", compact('cars'));
+    }
+    public function rent($id) {
+        $selectedCar= new Car;
+        $selectedCar = $selectedCar->find($id);
+        return view("rent.viewcar", compact('selectedCar'));
     }
 }
