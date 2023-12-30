@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\Model;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -68,18 +68,25 @@ from models left join brands on brands.id = models.brand_id"
         return redirect()->route('dashboard');
     }
 
-    public function show($car)
+    public function show($id)
     {
-        $car = DB::select('Select * from cars where id = ? limit 1', [$car]);
-        if (!isset($car[0])) {
-            abort(404);
-        }
+        $selectedCar = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
+              join models m on m.id = cars.model_id
+              join car_types ct on cars.type_id = ct.id
+              join offices o on cars.office_id = o.id
+              join cities c on c.id = o.city_id
+              where cars.id = ?', [$id]))
+            ->map(fn($selectedCar) => (array)$selectedCar)
+            ->mapInto(Car::class);
 
-        $car = new Car((array)$car[0]);
+
+        $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
+            ->map(fn($rent) => (array)$rent)
+            ->mapInto(Rental::class);
 
         return view("cars.show", [
-            "title" => "Show a car",
-            "car" => $car,
+            'selectedCar' => $selectedCar,
+            'rent' => $rent
         ]);
     }
 }
