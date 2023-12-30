@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\Model;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +12,10 @@ class CarController extends Controller
     public function create()
     {
         $models = collect(DB::select(
-            "SELECT models.id, brands.name as brand_name, models.`name` from models left join brands on brands.id = models.brand_id"
+            "SELECT models.id,
+       brands.name as brand_name,
+       models.`name`
+from models left join brands on brands.id = models.brand_id"
         ))
             ->mapWithKeys(fn($model) => [
                 $model->id => "$model->brand_name $model->name"
@@ -48,7 +51,7 @@ class CarController extends Controller
             // TODO: upload image
         }
 
-        DB::insert('INSERT INTO cars (model_id, category, color, mileage, type_id, plate_id, price_per_day, office_id, year, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::insert('INSERT INTO cars (model_id, category, color, mileage, type_id, plate_id, price_per_day, office_id, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->model_id,
             $request->category,
             $request->color,
@@ -58,7 +61,6 @@ class CarController extends Controller
             $request->price_per_day,
             $request->office_id,
             $request->year,
-            "Active"
         ]);
 
         session()->flash('success', 'Car added successfully!');
@@ -66,18 +68,25 @@ class CarController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function show($car)
+    public function show($id)
     {
-        $car = DB::select('Select * from cars where id = ? limit 1', [$car]);
-        if (!isset($car[0])) {
-            abort(404);
-        }
+        $selectedCar = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
+              join models m on m.id = cars.model_id
+              join car_types ct on cars.type_id = ct.id
+              join offices o on cars.office_id = o.id
+              join cities c on c.id = o.city_id
+              where cars.id = ?', [$id]))
+            ->map(fn($selectedCar) => (array)$selectedCar)
+            ->mapInto(Car::class);
 
-        $car = new Car((array)$car[0]);
+
+        $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
+            ->map(fn($rent) => (array)$rent)
+            ->mapInto(Rental::class);
 
         return view("cars.show", [
-            "title" => "Show a car",
-            "car" => $car,
+            'selectedCar' => $selectedCar,
+            'rent' => $rent
         ]);
     }
 }

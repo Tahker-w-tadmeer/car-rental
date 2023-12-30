@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Car;
 use Illuminate\Support\Facades\DB;
 
@@ -38,10 +39,5 @@ class DashboardController extends Controller
             ->mapInto(Car::class);
 
         return view("dashboard", compact('cars'));
-    }
-    public function rent($id) {
-        $selectedCar= new Car;
-        $selectedCar = $selectedCar->find($id);
-        return view("rent.viewcar", compact('selectedCar'));
     }
 }
