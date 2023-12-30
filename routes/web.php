@@ -20,7 +20,6 @@ Route::post("/logout", [LoginController::class, "logout"]);
 
 Route::middleware(["auth"])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
-    Route::get("/rent/{id}",[DashboardController::class,"rent"])->name("rent");
 
     Route::resource("cars", CarController::class);
 });

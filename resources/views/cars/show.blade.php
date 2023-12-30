@@ -1,20 +1,18 @@
 <x-app>
-    {{-- {{$car}}--}}
-
-    <section class="overflow-hidden bg-gradient-to-r from-purple-500 to-indigo-600 py-11 font-poppins dark:bg-gray-800">
+    <section class="overflow-hidden py-11 font-poppins">
         <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
-            <div class="flex flex-wrap -mx-4" style="border-width: 2px; border-radius: 15px">
+            <div class="flex flex-wrap -mx-4">
                 <div class="w-full px-4 md:w-1/2">
-                    <div class="sticky top-0 z-50 overflow-hidden rounded-lg shadow-lg" >
+                    <div class="sticky top-0 z-50 overflow-hidden rounded-lg shadow-lg">
                         <div class="relative mb-6 lg:mb-10 lg:h-2/4 overflow-hidden rounded-lg">
                             <img src="{{ $car->image }}" alt="Car Image" class="w-full h-auto">
                         </div>
                     </div>
                 </div>
                 <div class="w-full px-4 md:w-1/2">
-                    <div class="lg:pl-20 overflow-hidden rounded-lg shadow-lg" style="border-width: 2px; border-radius: 15px">
-                        <div style="margin: 20px;box-shadow:10px " >
-                            <div class="car-details text-center" >
+                    <div class="lg:pl-20 overflow-hidden rounded-lg shadow-lg">
+                        <div style="margin: 20px;">
+                            <div class="car-details text-center">
                                 <p class="inline-block mb-8 text-3xl font-bold text-gray-700 dark:text-gray-400">
                                     Car details
                                 </p>
@@ -42,15 +40,6 @@
                 </div>
 
             </div>
-{{--            <div class="flex justify-center mt-4">--}}
-{{--                <button class="px-4 py-2 text-balck bg-blue-500 rounded-lg hover:bg-blue-700" style="border-color: black ; border-width: 3px">--}}
-{{--                    Previous Car--}}
-{{--                </button>--}}
-{{--                <button class="ml-4 px-4 py-2 text-black bg-blue-500 rounded-lg hover:bg-blue-700"style="border-color: black ; border-width: 3px">--}}
-{{--                    Next Car--}}
-{{--                </button>--}}
-{{--            </div>--}}
-
         </div>
 
     </section>
