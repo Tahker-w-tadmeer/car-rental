@@ -39,12 +39,19 @@
                     <div>
                         <p>
                             <span class="text-gray-900 font-semibold">Rented at:</span>
-                            {{ $car->reserved_at->format('d/m/Y') }}
+                            {{ $car->reserved_at->format('d/m/Y h:i a') }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p>
+                            <span class="text-gray-900 font-semibold">Pickup Date:</span>
+                            {{ $car->pickup_date->format('d/m/Y') }}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span class="text-gray-900 font-semibold">Will be returned at:</span>
+                            <span class="text-gray-900 font-semibold">Return Date:</span>
                             <span>
                            {{ $car->return_date->format('d/m/Y') }}
                        </span>
