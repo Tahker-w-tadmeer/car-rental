@@ -29,4 +29,8 @@ values ('Alexandria', 'EG'), ('Cairo', 'EG'), ('Marsa Matrooh', 'EG'), ('Asiut',
 
 insert into users (`first_name`, `last_name`, `email`, `phone`, `password`, `type`)
 values ('Admin', '1', 'admin@car.test', '01234567891', '$2a$12$upq6InyBsHDUCjjNyPmy7ueSqtPznei.8e2tLqjx13AXSddbIABu2', 'Admin'); # password: 123456
+INSERT INTO rentals VALUES (null, '13', '1', DEFAULT , '2008-11-11', ' 2008-11-11 5:00:00', '2023-12-31', ' 2023-12-31 05:00:00', '700');
+INSERT INTO rentals VALUES (null, '14', '1', DEFAULT , '2008-11-11', ' 2008-11-11 5:00:00', '2022-11-11', ' 2022-11-11 05:00:00', '500');
+INSERT INTO rentals VALUES (null, '16', '1', DEFAULT , '2008-11-11', ' 2008-11-11 5:00:00', '2025-11-11', ' 2025-11-11 5:00:00', '600');
+INSERT INTO rentals VALUES (null, '18', '1', DEFAULT , '2008-11-11', ' 2008-11-11 5:00:00', '2026-11-11', ' 2026-11-11 5:00:00', '800');
 

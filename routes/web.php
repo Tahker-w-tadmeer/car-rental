@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ProfileController;
 
 
 Route::get("/", HomeController::class)->name("home");
@@ -22,5 +23,6 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
 
     Route::resource("cars", CarController::class);
+    Route::get("/profile/{id}",[ProfileController::class,"show"]);
 });
 

@@ -34,7 +34,6 @@ class DashboardController extends Controller
                 "image" => $car->image,
                 "mileage" => $car->mileage,
                 "color" => $car->color,
-                "status" => $car->status,
             ])
             ->mapInto(Car::class);
 
