@@ -1,87 +1,76 @@
 <x-app>
-    <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+    <div class="bg-white relative max-w-3xl mx-auto shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                car model
+            <h3 class="text-2xl leading-6 font-medium text-gray-900">
+                {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
             </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                {{$selectedCar[0]->name}}
-            </p>
+
         </div>
         <div class="border-t border-gray-200">
             <dl>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        year
+                        Category
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->year}}
-                    </dd>
-                </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        plate_id
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->plate_id}}
-                    </dd>
-                </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        category
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->category}}
+                        {{$car->category}}
 
                     </dd>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        price per day
+                        Type
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->price_per_day}}$
+                        {{$car->type_name}}
                     </dd>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        mileage
+                        $/day
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->mileage}} KM/H
+                        ${{$car->price_per_day}}
                     </dd>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        type name
+                        Mileage
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->type_name}}
+                        {{$car->mileage}} Km
                     </dd>
                 </div>
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                        office name-location
+                        License plate
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{$selectedCar[0]->office_name}}-{{$selectedCar[0]->city_name}}
+                        {{$car->plate_id}}
+                    </dd>
+                </div>
+
+                <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        Office
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        {{$car->office_name}} <span class="text-gray-800 text-sm">({{$car->city_name}})</span>
                     </dd>
                 </div>
             </dl>
 
         </div>
-    </div>
-    <div class="absolute right-0 top-0 ">
-        <img src="{{asset($selectedCar[0]->image)}}" >
+        <div class="absolute right-0 top-0">
+            <img src="{{ asset($car->image) }}">
+        </div>
     </div>
     <br>
-    <div class="container ">
-        <h1 class="text-4xl leading-6 font-bold text-gray-900">
-            rent section
+    <div class="bg-white shadow p-6 rounded-lg max-w-3xl mx-auto">
+        <h1 class="text-2xl leading-6 font-medium text-gray-900">
+            Rent Car
         </h1>
-        <br>
-        <x-forms.rent-form :price="$selectedCar[0]->price_per_day"
-                           :carId="$selectedCar[0]->id"/>
+        <x-forms.rent-form :car="$car"/>
     </div>
 
 </x-app>

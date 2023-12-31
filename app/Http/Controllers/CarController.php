@@ -13,9 +13,9 @@ class CarController extends Controller
     {
         $models = collect(DB::select(
             "SELECT models.id,
-       brands.name as brand_name,
-       models.`name`
-from models left join brands on brands.id = models.brand_id"
+           brands.name as brand_name,
+           models.`name`
+            from models left join brands on brands.id = models.brand_id"
         ))
             ->mapWithKeys(fn($model) => [
                 $model->id => "$model->brand_name $model->name"
@@ -70,14 +70,17 @@ from models left join brands on brands.id = models.brand_id"
 
     public function show($id)
     {
-        $selectedCar = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
+        $selectedCar = DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
               join models m on m.id = cars.model_id
               join car_types ct on cars.type_id = ct.id
               join offices o on cars.office_id = o.id
               join cities c on c.id = o.city_id
-              where cars.id = ?', [$id]))
-            ->map(fn($selectedCar) => (array)$selectedCar)
-            ->mapInto(Car::class);
+              where cars.id = ? LIMIT 1', [$id]);
+        if(!isset($selectedCar[0])) {
+            abort(404);
+        }
+
+        $selectedCar = new Car((array) $selectedCar[0]);
 
 
         $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
@@ -85,8 +88,36 @@ from models left join brands on brands.id = models.brand_id"
             ->mapInto(Rental::class);
 
         return view("cars.show", [
-            'selectedCar' => $selectedCar,
+            'car' => $selectedCar,
             'rent' => $rent
         ]);
+    }
+
+    public function rent(Request $request, $car)
+    {
+        $car = collect(DB::select("Select * from cars where id = ? LIMIT 1", [$car]))->firstOrFail();
+
+        $request->validate([
+            'pickup_date' => 'required|date|after_or_equal:today',
+            'return_date' => 'required|date|after:pickup_date',
+        ]);
+
+        $pickupDate = $request->date('pickup_date');
+        $returnDate = $request->date('return_date');
+
+        $days = $pickupDate->diffInDays($returnDate);
+        $totalPrice = $days * $car->price_per_day;
+
+        DB::insert('INSERT INTO rentals (user_id, car_id, pickup_date, return_date, total_price) VALUES (?, ?, ?, ?, ?)', [
+            auth()->user()->id,
+            $car->id,
+            $pickupDate,
+            $returnDate,
+            $totalPrice,
+        ]);
+
+        session()->flash('success', 'Car rented successfully!');
+
+        return redirect()->route('dashboard');
     }
 }

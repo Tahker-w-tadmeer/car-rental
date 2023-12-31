@@ -21,6 +21,7 @@
 <body class="h-full bg-gray-50">
 <div x-data="{ menu: false, profileDropdown: false }">
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+
     <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
         <div
                 x-show="menu"
@@ -112,7 +113,7 @@
                                 @click.away="profileDropdown=false"
                                 class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-50", Not Active: "" -->
-                            <a href="/profile/{{ auth()->user()->id }}}" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
+                            <a href="/profile" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
                             <form class="block w-full" method="POST" action="/logout">
                                 @csrf
                                 <button type="submit" class="block px-3 py-1 text-sm leading-6 text-gray-900"

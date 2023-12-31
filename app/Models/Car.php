@@ -14,6 +14,14 @@ class Car extends Model
     public $timestamps = false;
     public static string $imagePath = "public/images";
 
+    protected $casts = [
+        'return_date' => 'date',
+        'pickup_date' => 'date',
+        'reserved_at' => 'datetime',
+        'picked_up_at' => 'timestamp',
+        'returned_at' => 'timestamp',
+    ];
+
     public function image() : Attribute
     {
         return Attribute::get(
@@ -29,7 +37,7 @@ class Car extends Model
     public function paginate($perPage = 10, $columns = ['*'], $pageName = 'page', $page = null)
     {
 
-        
+
         return parent::paginate($perPage, $columns, $pageName, $page);
 
     }

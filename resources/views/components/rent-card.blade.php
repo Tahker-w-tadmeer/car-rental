@@ -33,35 +33,24 @@
                             class="text-gray-700 text-sm"></span>
                     </p>
                 </div>
-                <div>
-                    <p>
-                        <span class="text-gray-900 font-semibold">Rented at:</span>
-                        {{$car->reserved_at}}
-                    </p>
-                </div>
-                <div>
-                    <p>
-                        <span class="text-gray-900 font-semibold">will be reterned at:</span>
-                       <span>
-                           {{$car->returned_at}}
-                       </span>
-                    </p>
-                </div>
-                <footer class="flex justify-end mt-8">
+
+
+                <div class="space-y-2 mt-4">
                     <div>
-                        @if($car->status == 'Active')
-                            <a href="/cars/{{$car->id}}"
-                               class="transition-colors duration-300 text-xs font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-4">
-                                Rent
-                            </a>
-                            @else
-                            <span
-                               class="text-xs font-semibold bg-green-100 text-green-600 rounded-lg py-1 px-2">
-                                currently rented
-                            </span>
-                        @endif
+                        <p>
+                            <span class="text-gray-900 font-semibold">Rented at:</span>
+                            {{ $car->reserved_at->format('d/m/Y') }}
+                        </p>
                     </div>
-                </footer>
+                    <div>
+                        <p>
+                            <span class="text-gray-900 font-semibold">Will be returned at:</span>
+                            <span>
+                           {{ $car->return_date->format('d/m/Y') }}
+                       </span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

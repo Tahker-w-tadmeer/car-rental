@@ -9,4 +9,5 @@ class Rental extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $guarded = [];
 }

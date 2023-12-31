@@ -23,6 +23,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
 
     Route::resource("cars", CarController::class);
-    Route::get("/profile/{id}",[ProfileController::class,"show"]);
+    Route::post("cars/{car}/rent", [CarController::class, "rent"])->name("cars.rent");
+    Route::get("/profile",[ProfileController::class,"show"]);
 });
 

@@ -8,6 +8,7 @@
     </label>
     <div class="mt-2 {{ $error ? 'relative mt-2 rounded-md shadow-sm' : '' }}">
         <input type="{{ $type }}"
+               {{ $attributes }}
                name="{{ $name }}" id="{{ $id }}"
                value="{{ old($name) }}"
                @class([
