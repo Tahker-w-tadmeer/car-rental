@@ -10,7 +10,9 @@
                 <x-car-grid :cars="$cars"></x-car-grid>
             @endforeach
 
-            <hr class="border-2 border-gray-800">
+        @if(!$loop->last)
+                <hr class="border-2 border-gray-800">
+        @endif
         @endforeach
     </main>
 </x-app>

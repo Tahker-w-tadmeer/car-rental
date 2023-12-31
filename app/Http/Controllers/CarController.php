@@ -70,25 +70,23 @@ class CarController extends Controller
 
     public function show($id)
     {
-        $selectedCar = DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name,c.name as city_name from cars
+        $car = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name, brands.name as brand_name, c.name as city_name from cars
               join models m on m.id = cars.model_id
+              join brands on m.brand_id = brands.id
               join car_types ct on cars.type_id = ct.id
               join offices o on cars.office_id = o.id
               join cities c on c.id = o.city_id
-              where cars.id = ? LIMIT 1', [$id]);
-        if(!isset($selectedCar[0])) {
-            abort(404);
-        }
+              where cars.id = ? LIMIT 1', [$id]))
+            ->firstOrFail();
 
-        $selectedCar = new Car((array) $selectedCar[0]);
-
+        $car = new Car((array) $car);
 
         $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
             ->map(fn($rent) => (array)$rent)
             ->mapInto(Rental::class);
 
         return view("cars.show", [
-            'car' => $selectedCar,
+            'car' => $car,
             'rent' => $rent
         ]);
     }
@@ -119,5 +117,23 @@ class CarController extends Controller
         session()->flash('success', 'Car rented successfully!');
 
         return redirect()->route('dashboard');
+    }
+
+    public function status(Request $request, $car)
+    {
+        $car = collect(DB::select("Select * from cars where id = ? LIMIT 1", [$car]))->firstOrFail();
+
+        $request->validate([
+            'status' => 'required|in:Active,Out of Service',
+        ]);
+
+        DB::update('UPDATE cars SET status = ? WHERE id = ?', [
+            $request->status,
+            $car->id,
+        ]);
+
+        session()->flash('success', 'Car status updated successfully!');
+
+        return back();
     }
 }

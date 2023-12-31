@@ -32,12 +32,20 @@
 
                 </div>
                 <footer class="flex justify-end mt-8">
-                    <div>
-                        <a href="/cars/{{$car->id}}"
-                           class="transition-colors duration-300 text-xs font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-4">
-                            Rent
-                        </a>
-                    </div>
+                    @if($car->isActive())
+                        <div>
+                            <a href="/cars/{{$car->id}}"
+                               class="transition-colors duration-300 text-xs font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-4">
+                                Rent
+                            </a>
+                        </div>
+                        @else
+                        <a>
+                            <a href="/cars/{{$car->id}}"
+                               class="transition-colors duration-300 text-xs font-semibold bg-red-50 text-red-600 hover:text-red-100 hover:bg-red-600 rounded-lg py-1 px-3">
+                                Out of Service
+                            </a>
+                    @endif
                 </footer>
             </div>
         </div>

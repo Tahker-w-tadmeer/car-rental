@@ -125,8 +125,8 @@
             </div>
         </div>
 
-        <main class="py-10">
-            <div class="px-4 sm:px-6 lg:px-8">
+        <main class="py-6">
+            <div class="px-2 sm:px-4 lg:px-6">
                 {{ $slot }}
 
                 <x-flash-notifications :message="session()->get('success')" />

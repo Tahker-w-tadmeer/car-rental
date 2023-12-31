@@ -27,6 +27,7 @@ class DashboardController extends Controller
             ->map(fn($car) => [
                 "id" => $car->id,
                 "name" => $car->brand_name . " " . $car->model_name,
+                "status" => $car->status,
                 "model" => [
                     "id" => $car->model_id,
                     "name" => $car->model_name,

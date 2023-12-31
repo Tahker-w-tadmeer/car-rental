@@ -1,19 +1,17 @@
 <x-app>
     <div class="space-y-10 divide-y divide-gray-900/10">
-        <div class="flex flex-col space-y-5">
-            <x-card title="Personal information">
+        <div class="space-y-5">
+            <x-card class="max-w-2xl" title="Personal information">
                 <div class="px-4 py-6 sm:p-8">
                     <div class="grid max-w-4xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="col-span-3">
-                            <label for="first_name" class="block text-sm font-medium leading-6 text-gray-900">First
-                                name</label>
+                            <label for="first_name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
                             <div class="mt-2 flex  rounded-lg border  border-gray-900/25 px-2 py-1">
                                 <label> {{$user->first_name}}</label>
                             </div>
                         </div>
                         <div class="col-span-3">
-                            <label for="last_name" class="block text-sm font-medium leading-6 text-gray-900">Last
-                                name</label>
+                            <label for="last_name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
                             <div class="mt-2 flex  rounded-lg border  border-gray-900/25 px-2 py-1">
                                 <label> {{$user->last_name}}</label>
                             </div>

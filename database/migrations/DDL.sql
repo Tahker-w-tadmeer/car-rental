@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
     `image` varchar(255) NULL,
     `mileage` int(11),
     `type_id` int(11),
+    `status` enum('Active', 'Out of Service') default 'Active',
     `category` enum('Gas', 'Electric', 'Hybrid'),
     `price_per_day` decimal(10, 2),
 

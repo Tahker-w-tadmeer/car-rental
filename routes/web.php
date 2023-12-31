@@ -24,6 +24,7 @@ Route::middleware(["auth"])->group(function () {
 
     Route::resource("cars", CarController::class);
     Route::post("cars/{car}/rent", [CarController::class, "rent"])->name("cars.rent");
+    Route::patch("cars/{car}/status", [CarController::class, "status"])->name("cars.status");
     Route::get("/profile",[ProfileController::class,"show"]);
 });
 
