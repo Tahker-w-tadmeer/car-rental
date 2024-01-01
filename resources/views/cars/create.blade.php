@@ -41,11 +41,22 @@
                         />
 
                         <x-forms.select
-                            :options="$categories"
+                            :options="['Gas' => 'Gas', 'Electric' => 'Electric', 'Hybrid' => 'Hybrid']"
                             class="col-span-3"
-                            name="category"
-                            label="Category"
-                            id="category"
+                            name="fuel"
+                            label="Fuel"
+                            id="fuel"
+                        />
+
+                        <x-forms.select
+                            :options="[
+                               'Automatic' => 'Automatic',
+                                 'Manual' => 'Manual',
+                            ]"
+                            class="col-span-3"
+                            name="transmission"
+                            label="Transmission"
+                            id="transmission"
                         />
 
                         <x-forms.select
@@ -90,6 +101,7 @@
                             class="col-span-3"
                             required
                         />
+
                         <x-forms.input
                             type="number"
                             name="mileage"
@@ -98,6 +110,7 @@
                             placeholder="0-500000 Km"
                             class="col-span-3"
                         />
+
                         <x-forms.input
                             type="number"
                             name="price_per_day"

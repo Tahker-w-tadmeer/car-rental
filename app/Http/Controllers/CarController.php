@@ -26,7 +26,6 @@ class CarController extends Controller
             "models" => $models,
             "offices" => collect(DB::select('Select offices.id, cities.name, offices.name as city_name from offices join cities on offices.city_id = cities.id'))
                 ->mapWithKeys(fn($office) => [$office->id => $office->name . " - " . $office->city_name]),
-            "categories" => ['Gas' => 'Gas', 'Electric' => 'Electric', 'Hybrid' => 'Hybrid'],
             "types" => collect(DB::select('Select * from car_types'))
                 ->mapWithKeys(fn($type) => [$type->id => $type->type_name]),
         ]);
@@ -37,7 +36,8 @@ class CarController extends Controller
         $request->validate([
             'model_id' => 'required|exists:models,id',
             'type_id' => 'required|exists:car_types,id',
-            'category' => 'required|in:Gas,Electric,Hybrid',
+            'fuel' => 'required|in:Gas,Electric,Hybrid',
+            'transmission' => 'required|in:Manual,Automatic',
             'plate_id' => 'required|unique:cars,plate_id',
             'price_per_day' => 'required|numeric|min:1',
             'mileage' => 'required|numeric|min:0|max:999999',
@@ -51,9 +51,10 @@ class CarController extends Controller
             // TODO: upload image
         }
 
-        DB::insert('INSERT INTO cars (model_id, category, color, mileage, type_id, plate_id, price_per_day, office_id, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::insert('INSERT INTO cars (model_id, fuel, transmission, color, mileage, type_id, plate_id, price_per_day, office_id, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->model_id,
-            $request->category,
+            $request->fuel,
+            $request->transmission,
             $request->color,
             $request->mileage,
             $request->type_id,
@@ -65,7 +66,7 @@ class CarController extends Controller
 
         session()->flash('success', 'Car added successfully!');
 
-        return redirect()->route('dashboard');
+        return redirect()->route('cars.show', DB::getPdo()->lastInsertId());
     }
 
     public function show($id)

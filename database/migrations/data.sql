@@ -29,3 +29,4 @@ insert into models (brand_id, name) values
                                         (16, 'Accent'), (16, 'Elantra'), (16, 'Tucson'), (16, 'Santa Fe'),
                                         (17, 'Camaro'), (17, 'Malibu'), (17, 'Silverado'), (17, 'Suburban'),
                                         (18, '208'), (18, '308'), (18, '3008'), (18, '5008');
+

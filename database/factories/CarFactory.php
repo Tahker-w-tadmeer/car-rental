@@ -33,7 +33,8 @@ class CarFactory extends Factory
             "mileage" => $this->faker->numberBetween(0, 100000),
             "status" => ["Active", "Out of Service"][$this->faker->numberBetween(0, 5) == 0 ? 1 : 0],
             "type_id" => $typeId,
-            "category" => $this->faker->randomElement(["Gas", "Hybrid", "Electric"]),
+            "fuel" => $this->faker->randomElement(["Gas", "Hybrid", "Electric"]),
+            "transmission" => $this->faker->randomElement(["Manual", "Automatic"]),
             "price_per_day" => $this->faker->numberBetween(10, 200),
         ];
     }

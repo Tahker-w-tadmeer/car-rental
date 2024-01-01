@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS `cars` (
     `mileage` int(11),
     `type_id` int(11),
     `status` enum('Active', 'Out of Service') default 'Active',
-    `category` enum('Gas', 'Electric', 'Hybrid'),
+    `fuel` enum('Gas', 'Electric', 'Hybrid'),
+    `transmission` enum('Manual', 'Automatic'),
     `price_per_day` decimal(10, 2),
 
     FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
