@@ -27,6 +27,15 @@
                             </x-slot>
                                 Add Car
                         </x-navbar-item>
+
+                        <x-navbar-item href="/report">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" class="h-6 w-6 shrink-0 text-white" viewBox="0 0 512 512">
+                                    <path d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm-32 320V192h64v160h-64zm32-224c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/>
+                                </svg>
+                            </x-slot>
+                            report
+                        </x-navbar-item>
                     @endif
                 </ul>
             </li>

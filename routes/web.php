@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 
@@ -26,5 +27,6 @@ Route::middleware(["auth"])->group(function () {
     Route::post("cars/{car}/rent", [CarController::class, "rent"])->name("cars.rent");
     Route::patch("cars/{car}/status", [CarController::class, "status"])->name("cars.status");
     Route::get("/profile",[ProfileController::class,"show"]);
+    Route::get("report", [ReportController::class, "show"])->name("reports");
 });
 
