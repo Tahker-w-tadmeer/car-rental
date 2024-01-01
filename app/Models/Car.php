@@ -61,6 +61,7 @@ class Car extends Model
         return "select rentals.*, cars.*,
                 car_types.type_name as type,
                 cities.name as city_name,
+                offices.name as office_name,
                 CONCAT(models.name, ' ', brands.name) as name
                 from rentals
                 join cars on cars.id = rentals.car_id
