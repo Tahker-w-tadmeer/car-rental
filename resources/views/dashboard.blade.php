@@ -38,6 +38,18 @@
                         :selected="request('type')"
                     />
 
+                    <x-forms.range-selector
+                        name-max="max_price"
+                        name-min="min_price"
+                        label="Price"
+                        id="search-price"
+                        :value-max="request('max_price')"
+                        :value-min="request('min_price')"
+                        :max="$range->max"
+                        :min="$range->min"
+                        class="col-span-3"
+                    />
+
                     <div class="flex justify-center items-end">
                         <button type="submit"
                                 class="bg-indigo-600 text-white col-span-1 rounded-lg px-3 py-2 font-semibold text-sm transition-colors duration-300 hover:bg-indigo-700"

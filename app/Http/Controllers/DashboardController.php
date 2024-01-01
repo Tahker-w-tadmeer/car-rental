@@ -68,6 +68,13 @@ class DashboardController extends Controller
                 $query .= " and cars.type_id = '$type'";
         }
 
+        if($request->has("min_price") && $request->has("max_price")) {
+            $min_price = $request->get("min_price");
+            $max_price = $request->get("max_price");
+
+            $query .= " and cars.price_per_day between $min_price and $max_price ";
+        }
+
         $query .= "order by cars.price_per_day desc";
         $cars = collect(DB::select($query))
             ->map(fn($car) => [
@@ -117,10 +124,13 @@ class DashboardController extends Controller
         $types = ["all" => "All"] + collect(DB::select($query))
                 ->pluck("type_name", "id")->all();
 
+        $range = DB::select("select min(price_per_day) as min, max(price_per_day) as max from cars")[0];
+
         return view("dashboard", [
             "cars" => $cars,
             "offices" => $offices,
             "types" => $types,
+            "range" => $range,
         ]);
     }
 }
