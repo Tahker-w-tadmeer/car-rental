@@ -5,9 +5,9 @@
             <h1 class="text-3xl font-bold">{{ $city }}</h1>
 
             @foreach($offices as $office => $cars)
-                <h2 class="text-xl font-bold">{{ $office }}</h2>
+                <h2 class="text-xl font-bold">{{ $office }} </h2>
 
-                <x-car-grid :cars="$cars"></x-car-grid>
+                <x-car-grid :cars="$cars" ></x-car-grid>
             @endforeach
 
         @if(!$loop->last)
