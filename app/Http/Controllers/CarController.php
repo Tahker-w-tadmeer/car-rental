@@ -35,7 +35,6 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'model_id' => 'required|exists:models,id',
             'type_id' => 'required|exists:car_types,id',
@@ -70,32 +69,38 @@ class CarController extends Controller
             $imageName,
         ]);
 
-
         session()->flash('success', 'Car added successfully!');
 
         return redirect()->route('cars.show', DB::getPdo()->lastInsertId());
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $car = collect(DB::select('Select cars.*,m.name,ct.type_name,o.name as office_name, brands.name as brand_name, c.name as city_name from cars
-              join models m on m.id = cars.model_id
-              join brands on m.brand_id = brands.id
-              join car_types ct on cars.type_id = ct.id
-              join offices o on cars.office_id = o.id
-              join cities c on c.id = o.city_id
+        $car = collect(DB::select(Car::cardSQL() . '
               where cars.id = ? LIMIT 1', [$id]))
             ->firstOrFail();
 
         $car = new Car((array)$car);
 
-        $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
-            ->map(fn($rent) => (array)$rent)
-            ->mapInto(Rental::class);
+        $query = Car::cardSQL() . " where car_id = ? ";
+
+        $bindings = [$id];
+        if ($request->has("start") && $request->has("end")) {
+            $start = $request->date("start");
+            $end = $request->date("end");
+
+            $query .= " and (pickup_date BETWEEN ? AND ? OR return_date BETWEEN ? AND ?)";
+
+            $bindings = array_merge($bindings, [$start, $end, $start, $end]);
+        }
+
+        $query .= " group by rentals.user_id, rentals.id";
+
+        $rentals = collect(DB::select($query, $bindings));
 
         return view("cars.show", [
             'car' => $car,
-            'rent' => $rent
+            'rent' => $rentals,
         ]);
     }
 

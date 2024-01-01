@@ -75,7 +75,7 @@
                             Type
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{$car->type_name}}
+                            {{ $car->type }}
                         </dd>
                     </div>
                     <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -124,5 +124,13 @@
                 <x-forms.rent-form :car="$car"/>
             </x-card>
         @endif
+
+        <x-card title="Reservations">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                @foreach($car as $rent)
+                    <x-rent-card :car="$car"/>
+                @endforeach
+            </div>
+        </x-card>
     </div>
 </x-app>
