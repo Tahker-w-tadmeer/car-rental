@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Rental;
+use App\Rules\CanRentCarRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -102,9 +103,18 @@ class CarController extends Controller
     {
         $car = collect(DB::select("Select * from cars where id = ? LIMIT 1", [$car]))->firstOrFail();
 
+        if($car->status !== "Active") {
+            abort(403);
+        }
+
         $request->validate([
-            'pickup_date' => 'required|date|after_or_equal:today',
-            'return_date' => 'required|date|after:pickup_date',
+            'pickup_date' => [
+                'required',
+                'date',
+                'after_or_equal:today',
+                new CanRentCarRule($car->id, $request->date('pickup_date'), $request->date('return_date')),
+            ],
+            'return_date' => ['required', 'date', 'after:pickup_date'],
         ]);
 
         $pickupDate = $request->date('pickup_date');
@@ -123,11 +133,15 @@ class CarController extends Controller
 
         session()->flash('success', 'Car rented successfully!');
 
-        return redirect()->route('dashboard');
+        return redirect()->route('profile');
     }
 
     public function status(Request $request, $car)
     {
+        if(! auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
         $car = collect(DB::select("Select * from cars where id = ? LIMIT 1", [$car]))->firstOrFail();
 
         $request->validate([

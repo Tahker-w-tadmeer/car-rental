@@ -14,27 +14,13 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $carsCurrentlyRented = collect(DB::select(
-            "select car_id,reserved_at,pickup_date,picked_up_at,return_date,returned_at,total_price
-                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name, c.*
-                    from rentals
-                    join cars c on c.id = rentals.car_id
-                    join models on c.model_id = models.id
-                    join brands on brands.id = models.brand_id
-                    join car_types on c.type_id = car_types.id
-                    where user_id=? and return_date>= current_timestamp()", [$user->id]))
+            Car::cardSQL() . " where user_id=? and return_date >= current_timestamp()", [$user->id]))
             ->map(fn($car) => $this->car($car))
             ->mapInto(Car::class);
 
 
         $rentHistory = collect(DB::select(
-            "select car_id,reserved_at,pickup_date,picked_up_at,return_date,returned_at,total_price
-                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name
-                    from rentals
-                    join cars c on c.id = rentals.car_id
-                    join models on c.model_id = models.id
-                    join brands on brands.id = models.brand_id
-                    join car_types on c.type_id = car_types.id
-                    where user_id=? and return_date< current_timestamp()", [$user->id]))
+            Car::cardSQL() . " where user_id=? and return_date < current_timestamp()", [$user->id]))
             ->map(fn($car) => $this->car($car))
             ->mapInto(Car::class);
 
@@ -49,9 +35,9 @@ class ProfileController extends Controller
     private function car($car) {
         return [
             "id" => $car->car_id,
-            "name" => $car->brand_name . " " . $car->model_name,
+            "name" => $car->name,
             "year" => $car->year,
-            "type" => $car->type_name,
+            "type" => $car->type,
             "fuel" => $car->fuel,
             "transmission" => $car->transmission,
             "image" => $car->image,

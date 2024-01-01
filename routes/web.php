@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 
@@ -26,7 +27,14 @@ Route::middleware(["auth"])->group(function () {
     Route::resource("cars", CarController::class);
     Route::post("cars/{car}/rent", [CarController::class, "rent"])->name("cars.rent");
     Route::patch("cars/{car}/status", [CarController::class, "status"])->name("cars.status");
-    Route::get("/profile",[ProfileController::class,"show"]);
+    Route::get("/profile",[ProfileController::class,"show"])->name("profile");
     Route::get("report", [ReportController::class, "show"])->name("reports");
+
+    Route::get("/rentals", [DashboardController::class, "rentals"])->name("rentals");
+});
+
+Route::middleware(["auth", "admin"])->group(function () {
+    Route::get("/users", [UserController::class, "index"])->name("users.index");
+    Route::get("/users/{user}", [UserController::class, "show"])->name("users.show");
 });
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,13 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     public $timestamps = false;
-    protected $guarded=[];
-    protected $fillable = [
-        "first_name" ,
-        "last_name" ,
-        "phone" ,
-        "email" ,
-        ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,5 +38,12 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->type === 'Admin';
+    }
+
+    public function name(): Attribute
+    {
+        return Attribute::get(
+            fn() => $this->first_name . " " . $this->last_name,
+        );
     }
 }
