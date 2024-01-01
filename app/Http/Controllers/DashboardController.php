@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index() {
-        $cars = collect(DB::select('Select cars.*,
+    public function index(Request $request)
+    {
+        $query = "Select cars.*,
        car_types.type_name, models.id as model_id,
        models.name as model_name, brands.name as brand_name,
        models.brand_id,
@@ -22,8 +24,13 @@ class DashboardController extends Controller
         join offices on cars.office_id = offices.id
         join cities on offices.city_id = cities.id
         join car_types on cars.type_id = car_types.id
-        order by cities.id, offices.id, cars.price_per_day desc
-        '))
+        ";
+
+
+
+
+        $query .= "order by cars.price_per_day desc";
+        $cars = collect(DB::select($query))
             ->map(fn($car) => [
                 "id" => $car->id,
                 "name" => $car->brand_name . " " . $car->model_name,
@@ -61,7 +68,8 @@ class DashboardController extends Controller
                 fn($car) => $car->office["name"],
             ]);
 
-
-        return view("dashboard", compact('cars'));
+        return view("dashboard", [
+            "cars" => $cars,
+        ]);
     }
 }
