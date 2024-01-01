@@ -38,6 +38,7 @@ class DashboardController extends Controller
                 ],
                 "year" => $car->year,
                 "type" => $car->type_name,
+                "plate_id" => $car->plate_id,
                 "transmission" => $car->transmission,
                 "fuel" => $car->fuel,
                 "price_per_day" => $car->price_per_day,
