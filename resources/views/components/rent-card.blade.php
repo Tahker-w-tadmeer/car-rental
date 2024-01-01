@@ -8,7 +8,7 @@
                 {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
             </header>
 
-            <div class="flex-1 flex flex-col justify-between ">
+            <div class="flex-1 flex flex-col justify-between">
                 <div class="mt-4">
                     <x-cars.details-card :car="$car" />
                 </div>
@@ -31,20 +31,23 @@
                         </p>
                     </div>
 
-                    <div>
-                        <p>
-                            <span class="text-gray-900 font-semibold">Pickup Date:</span>
-                            {{ $car->pickup_date->format('d/m/Y') }}
-                        </p>
+                    <div class="flex flex-col space-y-1 mt-8">
+                        <span>
+                            <time datetime="{{ $car->pickup_date->format("Y-m-d") }}">{{ $car->pickup_date->format('D jS \o\f M Y') }}</time>
+                        </span>
+
+                        <span>
+                            <time datetime="{{ $car->return_date->format("Y-m-d") }}">{{ $car->return_date->format('D jS \o\f M Y') }}</time>
+                        </span>
                     </div>
-                    <div>
-                        <p>
-                            <span class="text-gray-900 font-semibold">Return Date:</span>
-                            <span>
-                           {{ $car->return_date->format('d/m/Y') }}
-                       </span>
-                        </p>
-                    </div>
+                </div>
+
+                <div class="flex items-center justify-end mt-3">
+                    <a href="{{ route("cars.show", $car) }}"
+                    class="transition-colors duration-300 text-sm font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-3"
+                    >
+                        View
+                    </a>
                 </div>
             </div>
         </div>
