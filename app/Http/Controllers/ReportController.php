@@ -27,7 +27,7 @@ class ReportController extends Controller
         join offices on cars.office_id = offices.id
         join cities on offices.city_id = cities.id
         join car_types on cars.type_id = car_types.id
-        join carRentel.rentals r on cars.id = r.car_id
+        join rentals r on cars.id = r.car_id
         order by cities.id, offices.id, cars.price_per_day desc
         "))
         ->map(fn($car)=>(array)$car)
