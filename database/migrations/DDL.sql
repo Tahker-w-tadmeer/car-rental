@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
     `plate_id` varchar(20),
     `color` varchar(50),
     `office_id` int(11),
-    `image` varchar(255) NULL,
+    `image` varchar(60) NULL,
     `mileage` int(11),
     `type_id` int(11),
     `status` enum('Active', 'Out of Service') default 'Active',

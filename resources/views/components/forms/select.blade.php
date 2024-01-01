@@ -1,8 +1,14 @@
-@props(['options', 'name', 'label', 'id' => rand(1, 1000)])
+@props([
+    'options',
+    'name',
+    'label',
+    'id' => rand(1, 1000),
+    'selected' => old($name),
+])
 
 @php($error = $errors->get($name))
 
-<div {{ $attributes }} x-data='{ selected: "{{ old($name) }}", options: @json($options), open: false, search: "{{ $options[old($name)] ?? '' }}" }'
+<div {{ $attributes }} x-data='{ selected: "{{ $selected }}", options: @json($options), open: false, search: "{{ $options[$selected] ?? '' }}" }'
      @click.away="open=false">
     <label for="{{ $id }}" class="block text-sm font-medium leading-6 text-gray-900">{{ $label }}</label>
     <div class="relative mt-2">

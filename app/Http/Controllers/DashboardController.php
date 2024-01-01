@@ -24,10 +24,49 @@ class DashboardController extends Controller
         join offices on cars.office_id = offices.id
         join cities on offices.city_id = cities.id
         join car_types on cars.type_id = car_types.id
+        where 1=1
         ";
 
+        if($request->has("search")) {
+            $search = $request->get("search");
 
+            collect(str_getcsv($search, " ", '"'))
+                ->filter()
+                ->each(function ($term) use(&$query) {
+                    $query .= " and (cars.plate_id like '$term%' or
+                    brands.name like '$term%' or
+                    models.name like '$term%' or
+                    offices.name like '%$term%' or
+                    cities.name like '%$term%' or
+                    car_types.type_name like '$term%' or
+                    cars.color like '%$term%' or
+                    cars.transmission like '%$term%' or
+                    cars.fuel like '%$term%' or
+                    cars.year like '%$term%')";
+                });
+        }
 
+        if($request->has("transmission")) {
+            $transmission = $request->get("transmission");
+
+            if(in_array($transmission, ["Manual", "Automatic"])) {
+                $query .= " and cars.transmission = '$transmission'";
+            }
+        }
+
+        if($request->has("office")) {
+            $office = $request->get("office");
+
+            if($office !== "all")
+                $query .= " and cars.office_id = '$office'";
+        }
+
+        if($request->has("type")) {
+            $type = $request->get("type");
+
+            if($type !== "all")
+                $query .= " and cars.type_id = '$type'";
+        }
 
         $query .= "order by cars.price_per_day desc";
         $cars = collect(DB::select($query))
@@ -68,8 +107,20 @@ class DashboardController extends Controller
                 fn($car) => $car->office["name"],
             ]);
 
+        $query = "Select offices.id, CONCAT(cities.name, ' - ', offices.name) as name from offices join cities on offices.city_id = cities.id";
+
+        $offices = ["all" => "All"] + collect(DB::select($query))
+            ->pluck("name", "id")->all();
+
+        $query = "Select id, type_name from car_types";
+
+        $types = ["all" => "All"] + collect(DB::select($query))
+                ->pluck("type_name", "id")->all();
+
         return view("dashboard", [
             "cars" => $cars,
+            "offices" => $offices,
+            "types" => $types,
         ]);
     }
 }
