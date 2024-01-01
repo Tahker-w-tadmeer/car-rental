@@ -1,5 +1,5 @@
 <x-app>
-    <div class="w-full sm:px-2 md:pt-20 md:fixed inset-0 flex items-start">
+    <div class="w-full sm:px-2 md:pt-20 md:fixed inset-0 flex items-start h-[300px]">
         <div class="w-full bg-gray-200 py-4 px-6 rounded-lg lg:ml-72">
             <form action="{{ route('dashboard') }}" method="GET">
                 <div class="grid grid-cols-3 sm:grid-cols-9 md:grid-cols-12 gap-4">
@@ -69,7 +69,7 @@
             </form>
         </div>
     </div>
-    <main class="max-w-6xl mx-auto space-y-8 mt-6 md:mt-40">
+    <main class="max-w-6xl mx-auto space-y-8 mt-6 md:mt-60">
         @if(count($cars) == 0)
             <div class="mt-32 py-6 text-center flex flex-col items-center rounded-lg bg-gray-200 justify-center">
                 <svg

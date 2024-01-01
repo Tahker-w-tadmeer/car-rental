@@ -57,14 +57,14 @@ class DashboardController extends Controller
         if($request->has("office")) {
             $office = $request->get("office");
 
-            if($office !== "all")
+            if($office !== "all" && $office)
                 $query .= " and cars.office_id = '$office'";
         }
 
         if($request->has("type")) {
             $type = $request->get("type");
 
-            if($type !== "all")
+            if($type !== "all" && $type)
                 $query .= " and cars.type_id = '$type'";
         }
 

@@ -7,47 +7,51 @@
                     {{ $car->brand_name }} {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
                 </h3>
 
-                <div class="mt-3">
-                    <form method="POST" action="/cars/{{ $car->id }}/status">
-                        @csrf
-                        @if(auth()->user()->isAdmin())
-                        <input type="hidden" name="_method" value="PATCH">
-                        @if($car->isActive())
-                            <button
-                                type="submit"
-                                name="status"
-                                value="Out of Service"
-                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                            >
-                                Active
-                            </button>
-                        @else
-                            <button
-                                type="submit"
-                                name="status"
-                                value="Active"
-                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                            >
-                                Out of Service
-                            </button>
-                        @endif
 
-                    </form>
-                </div>
+                    <div class="mt-3">
+                        @if(auth()->user()->isAdmin())
+                        <form method="POST" action="/cars/{{ $car->id }}/status">
+                            @csrf
+                            <input type="hidden" name="_method" value="PATCH">
+                            @if($car->isActive())
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="Out of Service"
+                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                                >
+                                    Active
+                                </button>
+                            @else
+                                <button
+                                    type="submit"
+                                    name="status"
+                                    value="Active"
+                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                                >
+                                    Out of Service
+                                </button>
+                            @endif
+
+                        </form>
+                        @else
+                            @if($car->isActive())
+                                <span
+                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                                >
+                                    Active
+                                </span>
+                            @else
+                                <span
+                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                                >
+                                    Out of Service
+                                </span>
+                            @endif
+                        @endif
+                    </div>
             </div>
-            @else
-                <div class="mt-3">
-                    @if($car->isActive())
-                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                            Active
-                        </span>
-                    @else
-                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                            Out of Service
-                        </span>
-                    @endif
-                </div>
-            @endif
+
             <div class="border-t border-gray-200">
                 <dl>
                     <div class="odd:bg-white bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
