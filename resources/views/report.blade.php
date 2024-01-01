@@ -1,35 +1,36 @@
 <x-app>
-    <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8 mt-10">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <th> name</th>
-                            <th>status</th>
-                            <th> price_per_day</th>
-                            <th> color</th>
-                            <th> mileage</th>
-                            <th> office_name</th>
-                            <th> total_price</th>
-                        </tr>
 
-                        @foreach ($cars as $car)
-                            <tr>
-                                <x-table :car="$car->model_name"></x-table>
-                                <x-table :car="$car->status"></x-table>
-                                <x-table :car="$car->price_per_day"></x-table>
-                                <x-table :car="$car->color"></x-table>
-                                <x-table :car="$car->mileage"></x-table>
-                                <x-table :car="$car->office_name"></x-table>
-                                <x-table :car="$car->total_price"></x-table>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    @foreach($cars as $car)
+        <div >
+                <x-rent-card :car="$car">
+                </x-rent-card>
         </div>
-    </div>
+
+    @endforeach
+
+     <form action="/report" method="get" class="space-y-4">
+        @csrf
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <x-forms.input
+                id="pickup_date"
+                name="start_date"
+                type="date"
+                label="Pickup Date"
+                required
+            />
+
+            <x-forms.input
+                id="return_date"
+                name="end_date"
+                type="date"
+                label="Return Data"
+                required
+            />
+        </div>
+
+        <button
+            type="submit" class="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
+            find
+        </button>
+    </form>
 </x-app>
