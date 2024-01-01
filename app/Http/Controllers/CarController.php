@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
@@ -45,12 +46,15 @@ class CarController extends Controller
             'office_id' => 'required|exists:offices,id',
             'year' => 'required|numeric|min:1980|max:' . now()->addYear()->format("Y"),
             'color' => 'required|max:255',
-            'image' => 'required',
+            'image' => 'required|image',
         ]);
-        $path = null;
+        $imageName = null;
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/images');
+            $imageName = Str::random(32) . "." . $request->file('image')->extension();
+
+            $request->file('image')->storeAs(Car::$imagePath, $imageName);
         }
+
         DB::insert('INSERT INTO cars (model_id, fuel, transmission, color, mileage, type_id, plate_id, price_per_day, office_id, year,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)', [
             $request->model_id,
             $request->fuel,
@@ -62,7 +66,7 @@ class CarController extends Controller
             $request->price_per_day,
             $request->office_id,
             $request->year,
-            $path,
+            $imageName,
         ]);
 
 

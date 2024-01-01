@@ -20,7 +20,7 @@ class OfficeFactory extends Factory
         // Select id from city order by RAND() limit 1
 
         return [
-            "name" => $this->faker->name(),
+            "name" => $this->faker->company(),
             "city_id" => City::query()->inRandomOrder()->first()->id,
             "address" => $this->faker->address(),
             "phone" => $this->faker->phoneNumber(),

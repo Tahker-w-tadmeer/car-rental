@@ -95,8 +95,8 @@
                 </dl>
 
             </div>
-            <div class="absolute right-0 top-0">
-                <img src="{{ asset($car->image) }}">
+            <div class="sm:absolute right-0 top-0 sm:h-auto sm:w-[250px] md:w-[320px]">
+                <img class="" src="{{ $car->image }}">
             </div>
         </div>
 
