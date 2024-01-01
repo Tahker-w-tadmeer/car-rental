@@ -15,7 +15,7 @@ class ProfileController extends Controller
 
         $carsCurrentlyRented = collect(DB::select(
             "select car_id,reserved_at,pickup_date,picked_up_at,return_date,returned_at,total_price
-                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name,plate_id,color,mileage,year,category,image
+                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name, c.*
                     from rentals
                     join cars c on c.id = rentals.car_id
                     join models on c.model_id = models.id
@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         $rentHistory = collect(DB::select(
             "select car_id,reserved_at,pickup_date,picked_up_at,return_date,returned_at,total_price
-                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name,plate_id,color,mileage,year,category,image
+                    ,brands.name as brand_name,models.name as model_name,car_types.type_name as type_name
                     from rentals
                     join cars c on c.id = rentals.car_id
                     join models on c.model_id = models.id
