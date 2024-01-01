@@ -33,6 +33,7 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'model_id' => 'required|exists:models,id',
             'type_id' => 'required|exists:car_types,id',
@@ -42,16 +43,15 @@ class CarController extends Controller
             'price_per_day' => 'required|numeric|min:1',
             'mileage' => 'required|numeric|min:0|max:999999',
             'office_id' => 'required|exists:offices,id',
-            'year' => 'required|numeric|min:1980|max:'. now()->addYear()->format("Y"),
+            'year' => 'required|numeric|min:1980|max:' . now()->addYear()->format("Y"),
             'color' => 'required|max:255',
-            'image' => 'nullable|image',
+            'image' => 'required',
         ]);
-
-        if($request->hasFile('image')) {
-            // TODO: upload image
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
         }
-
-        DB::insert('INSERT INTO cars (model_id, fuel, transmission, color, mileage, type_id, plate_id, price_per_day, office_id, year) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::insert('INSERT INTO cars (model_id, fuel, transmission, color, mileage, type_id, plate_id, price_per_day, office_id, year,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)', [
             $request->model_id,
             $request->fuel,
             $request->transmission,
@@ -62,7 +62,9 @@ class CarController extends Controller
             $request->price_per_day,
             $request->office_id,
             $request->year,
+            $path,
         ]);
+
 
         session()->flash('success', 'Car added successfully!');
 
@@ -80,7 +82,7 @@ class CarController extends Controller
               where cars.id = ? LIMIT 1', [$id]))
             ->firstOrFail();
 
-        $car = new Car((array) $car);
+        $car = new Car((array)$car);
 
         $rent = collect(DB::select('Select rentals.* from rentals where car_id = ?', [$id]))
             ->map(fn($rent) => (array)$rent)

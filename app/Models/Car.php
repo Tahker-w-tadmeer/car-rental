@@ -32,7 +32,7 @@ class Car extends Model
                     return asset("images/car.png");
                 }
 
-                return Storage::get(self::$imagePath . "/$image");
+                return (self::$imagePath . "/$image");
             },
         );
     }
