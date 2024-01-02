@@ -22,4 +22,27 @@ class ReportController extends Controller
         return view("report", ["cars" => $cars]);
     }
 
+    public function payments(Request $request)
+    {
+        $startDate = $request->get("start_date");
+        $endDate = $request->get("end_date");
+        $payments =
+            collect(DB::select("Select sum(total_price) as all_price, date (rentals.reserved_at) as reserved_at
+         from rentals
+       where reserved_at between ? and ?
+       group by date (rentals.reserved_at)
+         ", [$startDate, $endDate]))
+        ->map(fn($payment) => $this->payment($payment))
+        ->mapInto(Car::class)
+        ;
+
+        return view("payment", ["payments" => $payments]);
+    }
+
+    private function payment($payment)
+    {
+        return [
+            "total_price" => $payment->all_price
+        ];
+    }
 }

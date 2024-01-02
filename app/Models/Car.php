@@ -56,8 +56,9 @@ class Car extends Model
         return $result->count > 0 ? "Rented" : $this->status;
     }
 
-    public static function cardSQL(): string
+    public static function cardSQL($selects=""): string
     {
+        $selects= $selects ? ", $selects" : "";
         return "select rentals.*, cars.*,
                 car_types.type_name as type,
                 cities.name as city_name,
@@ -66,6 +67,7 @@ class Car extends Model
                 users.id as user_id,
                 CONCAT(models.name, ' ', brands.name) as name,
                 TIMESTAMPDIFF(DAY, pickup_date, return_date) as total_days
+                $selects
                 from rentals
                 join cars on cars.id = rentals.car_id
                 join models on cars.model_id = models.id
