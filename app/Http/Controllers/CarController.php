@@ -59,7 +59,7 @@ class CarController extends Controller
             'office_id' => 'required|exists:offices,id',
             'year' => 'required|numeric|min:1980|max:' . now()->addYear()->format("Y"),
             'color' => 'required|max:255',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
         ]);
         $imageName = null;
         if ($request->hasFile('image')) {
