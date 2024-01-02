@@ -82,7 +82,8 @@ class CarController extends Controller
 
         $car = new Car((array)$car);
 
-        $query = Car::cardSQL() . " where car_id = ? ";
+        $query = "Select rentals.total_price, rentals.pickup_date, rentals.return_date, rentals.reserved_at,
+       users.* from rentals join users on users.id=rentals.user_id where car_id = ? ";
 
         $bindings = [$id];
         if ($request->has("start") && $request->has("end")) {
@@ -94,13 +95,15 @@ class CarController extends Controller
             $bindings = array_merge($bindings, [$start, $end, $start, $end]);
         }
 
-        $query .= " group by rentals.user_id, rentals.id";
+        $query .= " group by rentals.user_id, rentals.id order by rentals.pickup_date asc";
 
-        $rentals = collect(DB::select($query, $bindings));
+        $rentals = collect(DB::select($query, $bindings))
+            ->map(fn($rental) => (array) $rental)
+            ->mapInto(Rental::class);
 
         return view("cars.show", [
             'car' => $car,
-            'rent' => $rentals,
+            'rentals' => $rentals,
         ]);
     }
 

@@ -62,13 +62,17 @@ class Car extends Model
                 car_types.type_name as type,
                 cities.name as city_name,
                 offices.name as office_name,
-                CONCAT(models.name, ' ', brands.name) as name
+                CONCAT(users.first_name, ' ', users.last_name) as user_name,
+                users.id as user_id,
+                CONCAT(models.name, ' ', brands.name) as name,
+                TIMESTAMPDIFF(DAY, pickup_date, return_date) as total_days
                 from rentals
                 join cars on cars.id = rentals.car_id
                 join models on cars.model_id = models.id
                 join brands on brands.id = models.brand_id
                 join offices on offices.id = cars.office_id
                 join cities on cities.id = offices.city_id
+                join users on users.id = rentals.user_id
                 join car_types on cars.type_id = car_types.id";
     }
 }

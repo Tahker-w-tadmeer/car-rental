@@ -30,11 +30,9 @@
 
                         <x-navbar-item href="/report">
                             <x-slot name="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" class="h-6 w-6 shrink-0 text-white" viewBox="0 0 512 512">
-                                    <path d="M256 32C132.3 32 32 132.3 32 256s100.3 224 224 224 224-100.3 224-224S379.7 32 256 32zm-32 320V192h64v160h-64zm32-224c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 text-white" fill="currentColor" stroke="currentColor" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                             </x-slot>
-                            Report
+                            All reservations
                         </x-navbar-item>
 
                         <x-navbar-item href="/users">

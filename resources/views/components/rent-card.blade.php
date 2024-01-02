@@ -42,6 +42,15 @@
                     </div>
                 </div>
 
+                <div>
+                    <span class="text-gray-900 font-semibold text-lg">{{ $car->total_days }}</span> <span>days</span>
+                </div>
+
+                <div>
+                    <span>Reserved By </span>
+                    <a class="text-blue-700 hover:text-blue-900" href="{{ route("users.show", $car->user_id) }}">{{ $car->user_name }}</a>
+                </div>
+
                 <div class="flex items-center justify-end mt-3">
                     <a href="{{ route("cars.show", $car) }}"
                     class="transition-colors duration-300 text-sm font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-3"
