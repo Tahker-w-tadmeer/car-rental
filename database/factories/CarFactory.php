@@ -26,7 +26,9 @@ class CarFactory extends Factory
         $officeId = Office::query()->inRandomOrder()->first()->id;
         $typeId = CarType::query()->inRandomOrder()->first()->id;
 
-        $images = glob(__DIR__ . "/cars/*");
+        $sep = DIRECTORY_SEPARATOR;
+
+        $images = glob(__DIR__ . "{$sep}cars{$sep}*");
         $filename = null;
         if($this->faker->numberBetween(1, 4) != 1) { // 25% chance of no image
             $image = $images[array_rand($images)];
@@ -35,7 +37,7 @@ class CarFactory extends Factory
             $extension = pathinfo($image, PATHINFO_EXTENSION);
             $filename .= ".$extension";
 
-            copy(__DIR__ . "/cars/$image", Storage::path(Car::$imagePath . "/$filename"));
+            copy(__DIR__ . "{$sep}cars{$sep}$image", Storage::path(Car::$imagePath . "/$filename"));
         }
 
         return [
