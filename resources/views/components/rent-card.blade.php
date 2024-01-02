@@ -43,7 +43,7 @@
                 </div>
 
                 <div>
-                    <span class="text-gray-900 font-semibold text-lg">{{ $car->total_days }}</span> <span>days</span>
+                    <span class="text-gray-900 font-semibold text-lg">{{ $car->total_days }}</span> <span>{{ str("day")->plural($car->total_days) }}</span>
                 </div>
 
                 <div>

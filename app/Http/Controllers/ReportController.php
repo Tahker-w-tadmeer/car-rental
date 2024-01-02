@@ -28,18 +28,36 @@ class ReportController extends Controller
         $startDate = $request->get("start");
         $endDate = $request->get("end");
         $payments =
-            collect(DB::select("Select sum(total_price) as total_price, date (rentals.reserved_at) as reserved_at
+            collect(DB::select("Select sum(total_price) as total_price, date (rentals.reserved_at) as reserved_at, count(*) as count
             from rentals
            where reserved_at between ? and ?
            group by date (rentals.reserved_at)
          ", [$startDate, $endDate]))
         ->map(fn($payment) => [
             "price" => $payment->total_price,
-            "date" => Carbon::parse($payment->reserved_at),
-        ])
-        ;
+            "date" => $payment->reserved_at,
+            "count" => $payment->count,
+        ])->keyBy("date");
 
-        return view("payment", ["payments" => $payments]);
+        $paymentsWithZero = [];
+        $date = Carbon::parse($startDate);
+        while($date->lessThanOrEqualTo(Carbon::parse($endDate))) {
+            $paymentsWithZero[$date->format("Y-m-d")] = $payments[$date->format("Y-m-d")] ?? [
+                "price" => 0,
+                "date" => $date->copy()->format("Y-m-d"),
+                "count" => 0,
+            ];
+            $date->addDay();
+        }
+
+        $paymentsWithZero = collect($paymentsWithZero)
+            ->map(fn($p) => [
+                "price" => $p["price"],
+                "date" => Carbon::parse($p["date"]),
+                "count" => $p["count"],
+            ]);
+
+        return view("payment", ["payments" => $paymentsWithZero]);
     }
 
 }

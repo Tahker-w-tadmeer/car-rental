@@ -14,7 +14,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $carsCurrentlyRented = collect(DB::select(
-            Car::cardSQL() . " where user_id=? and return_date >= current_timestamp()", [$user->id]))
+            Car::cardSQL() . " where user_id=? and return_date >= current_timestamp() order by reserved_at desc", [$user->id]))
             ->map(fn($car) => (array) $car)
             ->mapInto(Car::class);
 

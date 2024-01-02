@@ -6,7 +6,7 @@
             </x-card>
 
             <x-card title="Cars currently rented">
-                <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     @foreach($carsCurrentlyRented as $car)
                         <x-rent-card :car="$car"/>
                     @endforeach
@@ -14,7 +14,7 @@
             </x-card>
 
             <x-card title="Rent history">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     @foreach($rentHistory as $car)
                         <x-rent-card :car="$car"/>
                     @endforeach

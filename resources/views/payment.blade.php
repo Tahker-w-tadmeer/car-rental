@@ -12,6 +12,7 @@
                             <tr>
                                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Day</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Payment</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Number of reservations</th>
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
@@ -22,6 +23,10 @@
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900">
                                         ${{ $payment["price"] }}
+                                    </td>
+
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900">
+                                        {{ $payment["count"] }}
                                     </td>
                                 </tr>
                             @endforeach
