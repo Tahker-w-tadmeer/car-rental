@@ -1,45 +1,25 @@
 <x-app>
 
+    <div class="space-y-5">
+        <x-date-range-selector url="/payment"/>
 
-<form action="/payment" method="get" class="space-y-4">
-    @csrf
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <x-forms.input
-            id="pickup_date"
-            name="start_date"
-            type="date"
-            label="Pickup Date"
-            required
-        />
+        <table class="table-auto">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Payment</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($payments as $payment)
+                <tr>
+                    <td>{{ $payment["date"] }}</td>
+                    <td>{{ $payment["price"] }}</td>
+                </tr>
+            @endforeach
 
-        <x-forms.input
-            id="return_date"
-            name="end_date"
-            type="date"
-            label="Return Data"
-            required
-        />
+            </tbody>
+        </table>
     </div>
-
-    <button
-        type="submit" class="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
-        find
-    </button>
-</form>
-    <table class="table-auto">
-        <thead>
-        <tr>
-            <th>payment</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($payments as $pay)
-            <tr>
-                <td>{{$pay->total_price}}</td>
-            </tr>
-        @endforeach
-
-        </tbody>
-    </table>
 </x-app>
 

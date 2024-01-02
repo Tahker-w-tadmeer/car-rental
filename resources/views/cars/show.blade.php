@@ -126,44 +126,7 @@
         @endif
 
         <x-card title="Reservations">
-            <div>
-                <form action="{{ route("cars.show", $car) }}" method="get">
-                    <div class="grid grid-cols-3 md:grid-cols-8 gap-4 w-full">
-                        <x-forms.input
-                            id="pickup_date"
-                            name="start"
-                            type="date"
-                            label="Start Date"
-                            required
-                            class="w-full col-span-3"
-                        />
-
-                        <x-forms.input
-                            id="return_date"
-                            name="end"
-                            type="date"
-                            label="End Data"
-                            required
-                            class="w-full col-span-3"
-                        />
-
-                        <div class="flex items-end justify-center w-full">
-                            <button
-                                type="submit" class="col-span-2 px-2 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 w-full">
-                                Apply
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="text-gray-600 mt-3">
-                From <span class="text-lg font-semibold text-gray-800">
-                {{ request()->date("start")?->format("l, jS \o\\f M Y") }}
-            </span> to <span class="text-lg font-semibold text-gray-800">
-                {{ request()->date("end")?->format("l, jS \o\\f M Y") }}
-            </span>
-            </div>
+            <x-date-range-selector :url="route('cars.show', $car)" />
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                 @foreach($rentals as $rental)
