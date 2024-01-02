@@ -8,31 +8,41 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
-
-        $cars=
-            collect(DB::select("
-        select cars.*
-        ,car_types.type_name
-        ,models.id as model_id
-        ,models.name as model_name
-        ,brands.name as brand_name
-        ,offices.name as office_name
-        ,cities.name as city_name
-        ,r.total_price as total_price
-        from cars
-        join models on cars.model_id = models.id
-        join brands on brands.id = models.brand_id
-        join offices on cars.office_id = offices.id
-        join cities on offices.city_id = cities.id
-        join car_types on cars.type_id = car_types.id
-        join rentals r on cars.id = r.car_id
-        order by cities.id, offices.id, cars.price_per_day desc
-        "))
-        ->map(fn($car)=>(array)$car)
-            ->mapInto(Car::class)
-        ;
-        return view('report',compact('cars'));
+        $startDate = $request->get("start_date");
+        $endDate = $request->get("end_date");
+        $cars = collect(DB::select("SELECT * , c.id as car_id, m.name as model_name, ct.type_name as type_name, b.name as brand_name
+         FROM rentals
+         join cars c on rentals.car_id = c.id
+         join models m on c.model_id = m.id
+         join carRentel.brands b on b.id = m.brand_id
+         join car_types ct on c.type_id = ct.id
+        where pickup_date >=  ?  AND return_date <= ? ",
+            [$startDate, $endDate]))
+        ->map(fn($car) => $this->car($car))
+            ->mapInto(Car::class);
+        return view("report", ["cars" => $cars]);
     }
+    private function car($car) {
+        return [
+            "id" => $car->car_id,
+            "name" => $car->brand_name . " " . $car->model_name,
+            "year" => $car->year,
+            "type" => $car->type_name,
+            "fuel" => $car->fuel,
+            "transmission" => $car->transmission,
+            "image" => $car->image,
+            "mileage" => $car->mileage,
+            "plate_id" => $car->plate_id,
+            "color" => $car->color,
+            "reserved_at" => $car->reserved_at,
+            "pickup_date" => $car->pickup_date,
+            "picked_up_at" => $car->picked_up_at,
+            "return_date" => $car->return_date,
+            "returned_at" => $car->returned_at,
+            "total_price" => $car->total_price,
+        ];
+    }
+
 }
