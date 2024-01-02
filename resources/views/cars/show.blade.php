@@ -8,8 +8,8 @@
                 </h3>
 
 
-                    <div class="mt-3">
-                        @if(auth()->user()->isAdmin())
+                <div class="mt-3">
+                    @if(auth()->user()->isAdmin())
                         <form method="POST" action="/cars/{{ $car->id }}/status">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
@@ -34,22 +34,22 @@
                             @endif
 
                         </form>
-                        @else
-                            @if($car->isActive())
-                                <span
-                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                                >
+                    @else
+                        @if($car->isActive())
+                            <span
+                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                            >
                                     Active
                                 </span>
-                            @else
-                                <span
-                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                                >
+                        @else
+                            <span
+                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
+                            >
                                     Out of Service
                                 </span>
-                            @endif
                         @endif
-                    </div>
+                    @endif
+                </div>
             </div>
 
             <div class="border-t border-gray-200">
@@ -125,19 +125,22 @@
             </x-card>
         @endif
 
-        <x-card title="Reservations">
-            <x-date-range-selector :url="route('cars.show', $car)" />
+        @if(auth()->user()->isAdmin())
+            <x-card title="Reservations">
+                <x-date-range-selector :url="route('cars.show', $car)"/>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                @foreach($rentals as $rental)
-                    <div class="border border-gray-800 rounded px-3 py-4 flex flex-col space-y-3">
-                        <a href="{{ route("users.show", $rental->id) }}"
-                           class="font-semibold text-blue-600 hover:text-blue-800">{{ $rental->first_name }} {{ $rental->last_name }}</a>
-                        <span class="text-lg font-medium">${{ $rental->total_price }}</span>
-                        <span class="text-gray-600">{{ $rental->pickup_date->format('D jS \o\f M Y') }} - {{ $rental->return_date->format('D jS \o\f M Y') }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </x-card>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    @foreach($rentals as $rental)
+                        <div class="border border-gray-800 rounded px-3 py-4 flex flex-col space-y-3">
+                            <a href="{{ route("users.show", $rental->id) }}"
+                               class="font-semibold text-blue-600 hover:text-blue-800">{{ $rental->first_name }} {{ $rental->last_name }}</a>
+                            <span class="text-lg font-medium">${{ $rental->total_price }}</span>
+                            <span
+                                class="text-gray-600">{{ $rental->pickup_date->format('D jS \o\f M Y') }} - {{ $rental->return_date->format('D jS \o\f M Y') }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </x-card>
+        @endif
     </div>
 </x-app>

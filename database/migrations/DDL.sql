@@ -64,9 +64,9 @@ CREATE TABLE IF NOT EXISTS `cars` (
     `transmission` enum('Manual', 'Automatic'),
     `price_per_day` decimal(10, 2),
 
-    FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
-    FOREIGN KEY (`office_id`) REFERENCES `offices` (`id`),
-    FOREIGN KEY (`type_id`) REFERENCES `car_types` (`id`)
+    FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`office_id`) REFERENCES `offices` (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`type_id`) REFERENCES `car_types` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -87,13 +87,11 @@ CREATE TABLE IF NOT EXISTS `rentals` (
     `user_id` int(11),
     `reserved_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     `pickup_date` date,
-    `picked_up_at` timestamp NULL,
     `return_date` date,
-    `returned_at` timestamp NULL,
     `total_price` decimal(10,2),
 
-    FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+    FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
 
     INDEX `car_id_pickup_date` (`car_id`, `pickup_date`)
 );

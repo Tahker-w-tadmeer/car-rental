@@ -27,5 +27,12 @@
             </div>
         </div>
 
+        <div>
+            <label for="city" class="block text-xs font-bold leading-6 text-gray-900">City</label>
+            <div class="flex rounded-lg text-lg">
+                <label>{{ $user->city->name }}</label>
+            </div>
+        </div>
+
     </div>
 </div>

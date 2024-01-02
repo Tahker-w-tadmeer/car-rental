@@ -10,7 +10,7 @@ class RegistrationController extends Controller
 {
     public function show()
     {
-        $cities = collect(DB::select("select name from cities"))
+        $cities = collect(DB::select("select name from cities order by name asc"))
             ->map(fn($city) => $city->name)
         ;
         return view("register", [

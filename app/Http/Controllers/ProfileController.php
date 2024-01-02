@@ -11,7 +11,7 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        $user = auth()->user();
+        $user = auth()->user()->load("city");
 
         $carsCurrentlyRented = collect(DB::select(
             Car::cardSQL() . " where user_id=? and return_date >= current_timestamp() order by reserved_at desc", [$user->id]))
