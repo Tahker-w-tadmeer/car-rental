@@ -26,8 +26,8 @@ class ReportController extends Controller
 
     public function payments(Request $request)
     {
-        $startDate = $request->date("start")->startOfDay()->format("Y-m-d H:i:s");
-        $endDate = $request->date("end")->endOfDay()->format("Y-m-d H:i:s");
+        $startDate = $request->date("start")?->startOfDay()->format("Y-m-d H:i:s");
+        $endDate = $request->date("end")?->endOfDay()->format("Y-m-d H:i:s");
         $payments =
             collect(DB::select("Select sum(total_price) as total_price, date (rentals.reserved_at) as reserved_at, count(*) as count
             from rentals

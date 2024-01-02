@@ -87,6 +87,41 @@ class CarController extends Controller
         return redirect()->route('cars.show', DB::getPdo()->lastInsertId());
     }
 
+    public function edit($car) {
+        $car = collect(DB::select("Select cars.id, cars.price_per_day, CONCAT(brands.name, ' ', models.name) as name from cars
+                                   join models on models.id = cars.model_id
+                                      join brands on brands.id = models.brand_id
+                                   where cars.id = ? LIMIT 1", [$car]))->first();
+        if($car === null) {
+            abort(404);
+        }
+
+        return view("cars.edit", [
+            "car" => new Car((array) $car),
+        ]);
+    }
+
+    public function update($car, Request $request)
+    {
+        $car = collect(DB::select("Select * from cars where id = ? LIMIT 1", [$car]))->first();
+        if($car === null) {
+            abort(404);
+        }
+
+        $request->validate([
+            'price_per_day' => 'required|numeric|min:1',
+        ]);
+
+        DB::update('UPDATE cars SET price_per_day = ? WHERE id = ?', [
+            $request->price_per_day,
+            $car->id,
+        ]);
+
+        session()->flash('success', 'Car updated successfully!');
+
+        return redirect()->route('cars.show', $car->id);
+    }
+
     public function show($id, Request $request)
     {
         $car = collect(DB::select("

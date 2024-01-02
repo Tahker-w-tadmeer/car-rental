@@ -95,6 +95,7 @@ class DashboardController extends Controller
                 "transmission" => $car->transmission,
                 "fuel" => $car->fuel,
                 "price_per_day" => $car->price_per_day,
+                "city_name" => $car->city_name,
                 "office" => [
                     "id" => $car->office_id,
                     "name" => $car->office_name,
