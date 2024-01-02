@@ -29,12 +29,12 @@ Route::middleware(["auth"])->group(function () {
     Route::patch("cars/{car}/status", [CarController::class, "status"])->name("cars.status");
     Route::get("/profile",[ProfileController::class,"show"])->name("profile");
     Route::get("report", [ReportController::class, "show"])->name("reports");
-
     Route::get("/rentals", [DashboardController::class, "rentals"])->name("rentals");
 });
 
 Route::middleware(["auth", "admin"])->group(function () {
     Route::get("/users", [UserController::class, "index"])->name("users.index");
     Route::get("/users/{user}", [UserController::class, "show"])->name("users.show");
+    Route::get("/payment", [ReportController::class, "payments"])->name("payments");
 });
 
