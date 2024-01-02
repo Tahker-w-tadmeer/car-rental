@@ -36,5 +36,6 @@ Route::middleware(["auth", "admin"])->group(function () {
     Route::get("/users", [UserController::class, "index"])->name("users.index");
     Route::get("/users/{user}", [UserController::class, "show"])->name("users.show");
     Route::get("/payment", [ReportController::class, "payments"])->name("payments");
+    Route::get("/status", [ReportController::class, "status"])->name("status");
 });
 

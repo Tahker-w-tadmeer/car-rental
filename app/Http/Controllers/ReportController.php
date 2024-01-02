@@ -14,8 +14,9 @@ class ReportController extends Controller
         $startDate = $request->get("start");
         $endDate = $request->get("end");
         $cars = collect(
-            DB::select(Car::cardSQL() . " where pickup_date >=  ?  AND return_date <= ? order by pickup_date asc",
-            [$startDate, $endDate])
+            DB::select(
+                Car::cardSQL() . " where (pickup_date between ? and ?) or (return_date between ? and ?) order by pickup_date asc",
+            [$startDate, $endDate, $startDate, $endDate])
         )->map(fn($car) => (array)$car)
             ->mapInto(Car::class);
 
@@ -41,13 +42,15 @@ class ReportController extends Controller
 
         $paymentsWithZero = [];
         $date = Carbon::parse($startDate);
-        while($date->lessThanOrEqualTo(Carbon::parse($endDate))) {
-            $paymentsWithZero[$date->format("Y-m-d")] = $payments[$date->format("Y-m-d")] ?? [
-                "price" => 0,
-                "date" => $date->copy()->format("Y-m-d"),
-                "count" => 0,
-            ];
-            $date->addDay();
+        if($startDate && $endDate) {
+            while ($date->lessThanOrEqualTo(Carbon::parse($endDate))) {
+                $paymentsWithZero[$date->format("Y-m-d")] = $payments[$date->format("Y-m-d")] ?? [
+                    "price" => 0,
+                    "date" => $date->copy()->format("Y-m-d"),
+                    "count" => 0,
+                ];
+                $date->addDay();
+            }
         }
 
         $paymentsWithZero = collect($paymentsWithZero)
@@ -60,4 +63,44 @@ class ReportController extends Controller
         return view("payment", ["payments" => $paymentsWithZero]);
     }
 
+    public function status(Request $request)
+    {
+        $request->validate([
+            "date" => "date",
+        ]);
+
+        $date = $request->date("date");
+
+        $rentedCarsIds = collect(DB::select("select cars.id from cars
+                left join rentals on rentals.car_id = cars.id
+                where rentals.pickup_date <= ? and rentals.return_date >= ?
+                group by cars.id
+            ", [$date, $date]))
+            ->pluck("id")
+            ->all();
+
+        $cars = collect(
+            DB::select("select cars.*, models.name as model_name, brands.name as brand_name from cars
+                left join rentals on rentals.car_id = cars.id
+                left join models on models.id = cars.model_id
+                left join brands on brands.id = models.brand_id
+                left join offices on offices.id = cars.office_id
+                group by cars.id
+            ")
+        )->map(function ($car) use($rentedCarsIds) {
+            $car = (array)$car;
+
+            if(in_array($car["id"], $rentedCarsIds)) {
+                $car["status"] = "Rented";
+            }
+
+            $car["name"] = $car["model_name"] . " " . $car["brand_name"];
+
+            return $car;
+        })
+            ->mapInto(Car::class);
+
+
+        return view("status", ["cars" => $cars]);
+    }
 }
