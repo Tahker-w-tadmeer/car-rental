@@ -5,12 +5,13 @@
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4"
              x-effect="calculatePrice"
+             x-init="calculatePrice()"
              x-data="{
-            startDate: null,
-            endDate: null,
+            startDate: '{{ old('pickup_date') ?? '' }}',
+            endDate: '{{ old('return_date') ?? '' }}',
             total: null
         }">
-            <x-forms.input
+            <x-forms.date
                 id="pickup_date"
                 name="pickup_date"
                 type="date"
@@ -19,7 +20,7 @@
                 required
             />
 
-            <x-forms.input
+            <x-forms.date
                 id="return_date"
                 name="return_date"
                 type="date"

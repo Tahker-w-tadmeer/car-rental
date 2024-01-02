@@ -15,13 +15,13 @@ class ProfileController extends Controller
 
         $carsCurrentlyRented = collect(DB::select(
             Car::cardSQL() . " where user_id=? and return_date >= current_timestamp()", [$user->id]))
-            ->map(fn($car) => $this->car($car))
+            ->map(fn($car) => (array) $car)
             ->mapInto(Car::class);
 
 
         $rentHistory = collect(DB::select(
             Car::cardSQL() . " where user_id=? and return_date < current_timestamp()", [$user->id]))
-            ->map(fn($car) => $this->car($car))
+            ->map(fn($car) => (array) $car)
             ->mapInto(Car::class);
 
 

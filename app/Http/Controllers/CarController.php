@@ -76,11 +76,31 @@ class CarController extends Controller
 
     public function show($id, Request $request)
     {
-        $car = collect(DB::select(Car::cardSQL() . '
-              where cars.id = ? LIMIT 1', [$id]))
-            ->firstOrFail();
+        $car = collect(DB::select("
+        SELECT
+        cars.*,
+        car_types.type_name AS type,
+        cities.name AS city_name,
+        offices.name AS office_name,
+        CONCAT(models.name, ' ', brands.name) AS name
+        FROM
+        cars
+        JOIN models ON cars.model_id = models.id
+        JOIN brands ON brands.id = models.brand_id
+        JOIN offices ON offices.id = cars.office_id
+        JOIN cities ON cities.id = offices.city_id
+        JOIN car_types ON cars.type_id = car_types.id
+        WHERE
+        cars.id = ?
+        LIMIT
+        1
+        ", [$id]))
+            ->first();
+        if($car === null) {
+            abort(404);
+        }
 
-        $car = new Car((array)$car);
+        $car = new Car((array) $car);
 
         $query = "Select rentals.total_price, rentals.pickup_date, rentals.return_date, rentals.reserved_at,
        users.* from rentals join users on users.id=rentals.user_id where car_id = ? ";

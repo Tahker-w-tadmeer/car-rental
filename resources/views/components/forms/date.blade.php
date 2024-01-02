@@ -10,7 +10,7 @@
 @php($error = $errors->get($name))
 
 <div {{ $attributes }}
-    x-data
+     x-data
      x-init="flatpickr($refs.input, {
         altFormat: 'F j, Y',
         altInput: true,

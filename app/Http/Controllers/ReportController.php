@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,14 +28,14 @@ class ReportController extends Controller
         $startDate = $request->get("start");
         $endDate = $request->get("end");
         $payments =
-            collect(DB::select("Select sum(total_price) as all_price, date (rentals.reserved_at) as reserved_at
+            collect(DB::select("Select sum(total_price) as total_price, date (rentals.reserved_at) as reserved_at
             from rentals
            where reserved_at between ? and ?
            group by date (rentals.reserved_at)
          ", [$startDate, $endDate]))
         ->map(fn($payment) => [
-            "price" => $payment->all_price,
-            "date" => $payment->reserved_at,
+            "price" => $payment->total_price,
+            "date" => Carbon::parse($payment->reserved_at),
         ])
         ;
 

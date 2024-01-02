@@ -12,9 +12,10 @@ class CanRentCarRule implements ValidationRule
 
     public function __construct(
         protected $carId,
-        protected Carbon $start,
-        protected Carbon $end
-    ) {}
+        protected ?Carbon $start,
+        protected ?Carbon $end
+    ) {
+    }
 
     /**
      * Run the validation rule.
@@ -23,6 +24,11 @@ class CanRentCarRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if(!$this->start || !$this->end) {
+            $fail("Invalid date range");
+            return;
+        }
+
         $start = $this->start->format("Y-m-d");
         $end = $this->end->format("Y-m-d");
         $rentals = collect(DB::select(
