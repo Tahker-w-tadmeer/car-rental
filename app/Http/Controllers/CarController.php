@@ -33,6 +33,19 @@ class CarController extends Controller
         ]);
     }
 
+    public function destroy(Car $car)
+    {
+        if(! auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
+        $car->delete();
+
+        session()->flash('success', 'Car deleted successfully!');
+
+        return redirect()->route('dashboard');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -82,7 +95,7 @@ class CarController extends Controller
         car_types.type_name AS type,
         cities.name AS city_name,
         offices.name AS office_name,
-        CONCAT(models.name, ' ', brands.name) AS name
+        CONCAT(brands.name, ' ', models.name) AS name
         FROM
         cars
         JOIN models ON cars.model_id = models.id

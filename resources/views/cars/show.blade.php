@@ -4,36 +4,50 @@
         <div class="bg-white relative max-w-4xl mx-auto shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-2xl leading-6 font-medium text-gray-900">
-                    {{ $car->brand_name }} {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
+                    {{ $car->name }} <span class="text-gray-600">{{ $car->year }}</span>
                 </h3>
 
 
                 <div class="mt-3">
                     @if(auth()->user()->isAdmin())
-                        <form method="POST" action="/cars/{{ $car->id }}/status">
-                            @csrf
-                            <input type="hidden" name="_method" value="PATCH">
-                            @if($car->isActive())
-                                <button
-                                    type="submit"
-                                    name="status"
-                                    value="Out of Service"
-                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                                >
-                                    Active
-                                </button>
-                            @else
-                                <button
-                                    type="submit"
-                                    name="status"
-                                    value="Active"
-                                    class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800"
-                                >
-                                    Out of Service
-                                </button>
-                            @endif
+                        <div class="flex items-center space-x-4">
+                            <form method="POST" action="/cars/{{ $car->id }}/status">
+                                @csrf
+                                <input type="hidden" name="_method" value="PATCH">
+                                @if($car->isActive())
+                                    <button
+                                        type="submit"
+                                        name="status"
+                                        value="Out of Service"
+                                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 hover:bg-green-700 hover:text-green-50 transition-colors duration-300"
+                                    >
+                                        Active
+                                    </button>
+                                @else
+                                    <button
+                                        type="submit"
+                                        name="status"
+                                        value="Active"
+                                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800 hover:bg-red-700 hover:text-red-50 transition-colors duration-300"
+                                    >
+                                        Out of Service
+                                    </button>
+                                @endif
+                            </form>
+                            <div>
+                                <form action="{{ route("cars.destroy", $car) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
 
-                        </form>
+                                    <button
+                                        type="submit"
+                                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
                     @else
                         @if($car->isActive())
                             <span

@@ -3,8 +3,7 @@
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-5">
             <div class="px-4 sm:px-0">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Car Data</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">You can add new car/model to the system from this Form
-                    .</p>
+                <p class="mt-1 text-sm leading-6 text-gray-600">You can add new car/model to the system from this Form.</p>
             </div>
 
             <form
@@ -24,7 +23,6 @@
                         }
                     }
                 }"
-                x-effect="console.log(image)"
                 action="{{ route("cars.store") }}"
                   method="post"
                   enctype="multipart/form-data"
@@ -73,6 +71,13 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="flex items-center">
+                            <a href="{{ route("models.create") }}" class="text-blue-600 hover:text-blue-800 col-span-3">
+                                Add Model
+                            </a>
+                        </div>
+                        <div class="col-span-3"></div>
 
                         <x-forms.select
                             :options="$models"
