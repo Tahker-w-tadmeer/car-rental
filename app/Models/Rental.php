@@ -12,7 +12,13 @@ class Rental extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-
+    protected $casts = [
+        'pickup_date' => 'date',
+        'picked_up_at' => 'datetime',
+        'return_date' => 'date',
+        'returned_at' => 'datetime',
+        'reserved_at' => 'datetime',
+    ];
     public function car() : BelongsTo
     {
         return $this->belongsTo(Car::class);
