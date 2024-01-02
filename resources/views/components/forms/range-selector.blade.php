@@ -12,7 +12,7 @@
 <div
     x-data="{ min: {{ $valueMin }}, max: {{ $valueMax }}, background: '' }"
     x-effect="fillSlider"
-     {{ $attributes->merge(['class' => 'flex flex-col w-[80%] mx-[35px] my-auto']) }}
+     {{ $attributes->merge(['class' => 'flex items-center w-full space-x-12']) }}
 >
     <script>
         function fillSlider() {
@@ -33,7 +33,7 @@
         }
     </script>
 
-    <div class="relative min-h-[50px]">
+    <div class="relative min-w-64">
         <input
             x-model="min"
             id="{{ $id }}-fromSlider"
