@@ -76,7 +76,9 @@ CREATE TABLE IF NOT EXISTS `users` (
     `phone` varchar(20),
     `email` varchar(255) UNIQUE KEY,
     `password` varchar(255),
-    `type` enum('Customer', 'Admin') default 'Customer'
+    `city_id` int(11),
+    `type` enum('Customer', 'Admin') default 'Customer',
+     foreign key (`city_id`) references `cities` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `rentals` (
