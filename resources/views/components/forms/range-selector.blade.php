@@ -16,7 +16,7 @@
 >
     <script>
         function fillSlider() {
-            let sliderColor = "#ed7474";
+            let sliderColor = "#ffffff";
             let rangeColor = "#6366F1";
 
             const rangeDistance = {{ $max }} - {{ $min }};
@@ -56,10 +56,10 @@
             value="{{ $valueMax }}"
             min="{{ $min }}"
             max="{{ $max }}"
-            class="absolute w-full h-px text-xl leading-6 appearance-none cursor-text pointer-events-none bg-stone-300 text-zinc-500"
+            class="absolute w-full h-px z-10 text-xl leading-6 appearance-none cursor-text pointer-events-none bg-stone-300 text-zinc-500"
         />
     </div>
-    <div class="relative flex justify-between">
+    <div class="relative flex justify-between space-x-3">
         <div class="">
             <div class="">Min</div>
             <input x-model="min"

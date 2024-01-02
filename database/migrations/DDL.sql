@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `rentals` (
     `pickup_date` date,
     `return_date` date,
     `total_price` decimal(10,2),
+    `paid_at` timestamp NULL DEFAULT NULL,
 
     FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`) ON DELETE CASCADE,
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,

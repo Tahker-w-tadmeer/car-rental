@@ -51,12 +51,20 @@
                     <a class="text-blue-700 hover:text-blue-900" href="{{ route("users.show", $car->user_id) }}">{{ $car->user_name }}</a>
                 </div>
 
-                <div class="flex items-center justify-end mt-3">
+                <div class="flex items-center justify-between mt-3">
                     <a href="{{ route("cars.show", $car) }}"
                     class="transition-colors duration-300 text-sm font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-3"
                     >
                         View
                     </a>
+
+                    @if($car->paid_at == null)
+                        <a href="{{ route("pay", $car->rental_id) }}"
+                           class="transition-colors duration-300 text-sm font-semibold bg-blue-50 border border-blue-600 text-blue-600 hover:text-blue-100 hover:bg-blue-600 rounded-lg py-2 px-3"
+                        >
+                            Pay for rental
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

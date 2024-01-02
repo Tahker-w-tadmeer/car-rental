@@ -217,7 +217,7 @@ class CarController extends Controller
 
         session()->flash('success', 'Car rented successfully!');
 
-        return redirect()->route('profile');
+        return redirect()->route('pay', DB::getPdo()->lastInsertId());
     }
 
     public function status(Request $request, $car)

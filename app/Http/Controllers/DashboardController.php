@@ -54,6 +54,14 @@ class DashboardController extends Controller
             }
         }
 
+        if($request->has("status")) {
+            $status = $request->get("status");
+
+            if(in_array($status, ["Active", "Out of service"])) {
+                $query .= " and cars.status = '$status'";
+            }
+        }
+
         if($request->has("office")) {
             $office = $request->get("office");
 

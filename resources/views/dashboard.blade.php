@@ -38,6 +38,15 @@
                         :selected="request('type')"
                     />
 
+                    <x-forms.select
+                        :options="['Active' => 'Active', 'Out of service' => 'Out of service']"
+                        label="Status"
+                        id="status-type"
+                        name="status"
+                        class="col-span-3"
+                        :selected="request('status')"
+                    />
+
                     <x-forms.range-selector
                         name-max="max_price"
                         name-min="min_price"

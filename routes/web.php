@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ModelController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
@@ -30,6 +31,9 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/profile",[ProfileController::class,"show"])->name("profile");
     Route::get("report", [ReportController::class, "show"])->name("reports");
     Route::get("/rentals", [DashboardController::class, "rentals"])->name("rentals");
+
+    Route::get("/pay/{rental}", [PaymentController::class, "view"])->name("pay");
+    Route::post("/pay/{rental}", [PaymentController::class, "pay"])->name("pay.store");
 });
 
 Route::middleware(["auth", "admin"])->group(function () {

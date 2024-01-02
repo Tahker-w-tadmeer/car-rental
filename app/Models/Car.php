@@ -60,6 +60,7 @@ class Car extends Model
     {
         $selects= $selects ? ", $selects" : "";
         return "select rentals.*, cars.*,
+                rentals.id as rental_id,
                 car_types.type_name as type,
                 cities.name as city_name,
                 offices.name as office_name,
