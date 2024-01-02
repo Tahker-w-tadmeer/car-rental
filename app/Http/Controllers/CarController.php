@@ -13,6 +13,10 @@ class CarController extends Controller
 {
     public function create()
     {
+        if(!auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
         $models = collect(DB::select(
             "SELECT models.id,
            brands.name as brand_name,
@@ -48,6 +52,10 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
+        if(!auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
         $request->validate([
             'model_id' => 'required|exists:models,id',
             'type_id' => 'required|exists:car_types,id',
